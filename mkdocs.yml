@@ -1,0 +1,12 @@
+site_name: My Docs
+
+nav:
+  - homepage: index.md
+
+theme:
+  name: material
+  custom_dir:  overrides
+
+extra:
+  version:
+    provider: mike
