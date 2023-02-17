@@ -586,21 +586,25 @@ The way the tables work together.</p>
 </ul>
 </li>
 <li>Use white spaces
-<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
-</code></pre></div></li>
-</ol>
-<p><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w">              </span><span class="n">account_id</span>
+<div class="highlight"><pre><span></span><code><span class="cm">/*good example */</span>
+<span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="cm">/*bad example */</span>
+<span class="k">SELECT</span><span class="w">              </span><span class="n">account_id</span>
 
 <span class="k">FROM</span><span class="w">               </span><span class="n">orders</span>
-</code></pre></div>
-4. Semicolons
+</code></pre></div></li>
+<li>Semicolons
 depending on your sql environment you may need a semi colon
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span>
+<div class="highlight"><pre><span></span><code><span class="cm">/*with semi colon*/</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span>
+<div class="highlight"><pre><span></span><code><span class="cm">/*without semi colon*/</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
-</code></pre></div></p>
+</code></pre></div></li>
+</ol>
 <h2 id="limit">LIMIT</h2>
 <p>The LIMIT statement is useful when you want to see just the first few rows of a table. This can be much faster for loading than if we load the entire dataset.</p>
 <p>Always used as the last part of query.</p>
