@@ -271,6 +271,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#advantages-of-sql" class="md-nav__link">
+    Advantages of SQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-vs-no-sql" class="md-nav__link">
+    SQL vs No SQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-sql-databases" class="md-nav__link">
+    Types of SQL databases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formatting-sql-queries" class="md-nav__link">
+    Formatting SQL queries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    LIMIT
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    ORDER BY
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -416,6 +458,48 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#advantages-of-sql" class="md-nav__link">
+    Advantages of SQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-vs-no-sql" class="md-nav__link">
+    SQL vs No SQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-sql-databases" class="md-nav__link">
+    Types of SQL databases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formatting-sql-queries" class="md-nav__link">
+    Formatting SQL queries
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    LIMIT
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    ORDER BY
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -460,13 +544,81 @@ The way the tables work together.</p>
 <p>The "crow's foot" that connects the tables together shows us how the columns in one table relate to the columns in another table</p>
 <h2 id="why-is-sql-important">Why is SQL important</h2>
 <p>Advantages of using SQL:</p>
-<ul>
+<ol>
 <li>SQL is easy to understand</li>
 <li>Traditional databases allow us to access data directly</li>
 <li>Traditional databases allow us to audit and replicate our data</li>
 <li>SQL is great tool for analysing multiple tables at once</li>
 <li>SQL allows you to analyse more complex questions than dashboards tools like Google Analytics</li>
-</ul>
+</ol>
+<h2 id="advantages-of-sql">Advantages of SQL</h2>
+<ol>
+<li><strong>Data integrity is ensured</strong> - only data you want to be entered is entered, only authourised users will enter data.</li>
+<li><strong>Data can be accessed quickly</strong> - SQL allows you to obtain results very quickly from the DB. Code can be optimized to pull results quickly.</li>
+<li><strong>Data is easily shared</strong> - multiple users can access data stored in a DB, the data is the same for all users allowing for consistent results for anyone with access to you database.</li>
+</ol>
+<h2 id="sql-vs-no-sql">SQL vs No SQL</h2>
+<p>These NoSQL environments tend to be particularly popular for web-based data, but less popular for data that lives in spreadsheets the way we have been analyzing data up to this point.</p>
+<h2 id="types-of-sql-databases">Types of SQL databases</h2>
+<ol>
+<li>MySQL</li>
+<li>Access</li>
+<li>Oracle</li>
+<li>Microsoft SQL Server</li>
+<li>Postgres</li>
+</ol>
+<p><a href="https://www.digitalocean.com/community/tutorials/sqlite-vs-mysql-vs-postgresql-a-comparison-of-relational-database-management-systems">comparison of SQL lite, MYSQL, and PostgreSQL</a></p>
+<h2 id="formatting-sql-queries">Formatting SQL queries</h2>
+<p>Use Upper and Lower cases in SQL</p>
+<p>SQL is case insensitive</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+</code></pre></div>
+<p>same as</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">account_id</span>
+<span class="k">from</span><span class="w"> </span><span class="n">orders</span>
+</code></pre></div>
+<p>Best practices
+1. Capitalize all SQL commands, like SELECT and FROM, and keep everything else in your query lower case
+2. Avoid spaces in Table and Variable Names
+    - e.g. Table Name =&gt; table_name
+3. Use white spaces
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+</code></pre></div></p>
+<p><div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w">              </span><span class="n">account_id</span>
+
+<span class="k">FROM</span><span class="w">               </span><span class="n">orders</span>
+</code></pre></div>
+4. Semicolons
+depending on your sql environment you may need a semi colon
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+</code></pre></div></p>
+<h2 id="limit">LIMIT</h2>
+<p>The LIMIT statement is useful when you want to see just the first few rows of a table. This can be much faster for loading than if we load the entire dataset.</p>
+<p>Always used as the last part of query.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="order-by">ORDER BY</h2>
+<p>The ORDER BY statement allows us to sort our results using the data in any column</p>
+<p>Using ORDER BY in a SQL query only has temporary effects, for the results of that query</p>
+<p>The ORDER BY statement always comes in a query after the SELECT and FROM statements, but before the LIMIT statement</p>
+<p><strong>Pro Tip</strong>: to order descending use <code>DESC</code> in the  <code>ORDER BY</code> clause </p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">occurred_at</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">occurred_at</span><span class="p">,</span><span class="w"> </span><span class="n">total_amt_usd</span><span class="w"> </span><span class="k">DESC</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+</code></pre></div>
 
 
 
