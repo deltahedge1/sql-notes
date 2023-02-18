@@ -331,26 +331,32 @@
     WHERE
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="WHERE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#in" class="md-nav__link">
     IN
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#not" class="md-nav__link">
     NOT
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#like" class="md-nav__link">
     LIKE
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -586,26 +592,32 @@
     WHERE
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="WHERE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#in" class="md-nav__link">
     IN
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#not" class="md-nav__link">
     NOT
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#like" class="md-nav__link">
     LIKE
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -716,7 +728,7 @@ The way the tables work together.</p>
 </code></pre></div>
 <h3 id="best-practices">Best practices</h3>
 <ol>
-<li>Capitalize all SQL commands, like SELECT and FROM, and keep everything else in your query lower case</li>
+<li>Capitalize all SQL commands, like <code>SELECT</code> and <code>FROM</code>, and keep everything else in your query lower case</li>
 <li>Avoid spaces in Table and Variable Names<ul>
 <li>e.g. Table Name =&gt; table_name</li>
 </ul>
@@ -798,13 +810,13 @@ depending on your sql environment you may need a semi colon
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">occurred_at</span>
 <span class="k">LIMIT</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
 </code></pre></div>
-<h2 id="in">IN</h2>
+<h3 id="in">IN</h3>
 <p>The <code>IN</code> operator is useful for working with both numeric and text columns. This operator allows you to use an =, but for more than one item of that particular column</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="mi">1001</span><span class="p">,</span><span class="mi">1021</span><span class="p">);</span>
 </code></pre></div>
-<h2 id="not">NOT</h2>
+<h3 id="not">NOT</h3>
 <p>The NOT operator is an extremely useful operator for working with the previous two operators we introduced: <code>IN</code> and <code>LIKE</code>. By specifying <code>NOT LIKE</code> or <code>NOT IN</code>, we can grab all of the rows that do not meet particular criteria.</p>
 <p>NOT IN example
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">sales_rep_id</span><span class="p">,</span><span class="w"> </span>
@@ -818,14 +830,31 @@ depending on your sql environment you may need a semi colon
 <span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">website</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%com%&#39;</span><span class="p">;</span>
 </code></pre></div></p>
-<h2 id="like">LIKE</h2>
-<p>The <code>LIKE</code> operator is extremely useful for working with text. You will use LIKE within a WHERE clause. The LIKE operator is frequently used with <code>%</code>. </p>
-<p>The <code>%</code> tells us that we might want any number of characters leading up to a particular set of characters or following a certain set of characters.</p>
-<div class="highlight"><pre><span></span><code><span class="cm">/*code to pick up urls*/</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">website</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%.com%&#39;</span><span class="p">;</span>
-</code></pre></div>
+<h3 id="like">LIKE</h3>
+<p>The <code>LIKE</code> operator is used to check a specific character or unknown length of characters when searching through text.</p>
+<p>The <code>pattern</code> can contain two special wildcard characters:</p>
+<p><code>%</code> - represents any number of characters
+<code>_</code> - represents a single character</p>
+<ul>
+<li>Example 1: Select all the customers whose name starts with the letter 'A'
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customers</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">customer_name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;A%&#39;</span><span class="p">;</span>
+</code></pre></div></li>
+<li>Example 2: Select all the products whose name contains the word 'chocolate'
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">products</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%chocolate%&#39;</span>
+</code></pre></div></li>
+<li>Example 3: Select all the orders with order number starting with 'OD' and ending with '8'
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">products</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;OD%8&#39;</span>
+</code></pre></div></li>
+<li>Example 4: Select all the customers whose name is exactly 5 characters long and ends with 's'
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">products</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;_____s&#39;</span>
+</code></pre></div></li>
+</ul>
 <h2 id="logical-operators">Logical Operators</h2>
 <h3 id="and">AND</h3>
 <p><code>AND</code> operator is used within the <code>WHERE</code> clause.</p>
