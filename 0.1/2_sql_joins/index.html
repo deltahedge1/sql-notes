@@ -272,6 +272,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#database-normalization" class="md-nav__link">
+    Database Normalization
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal-forms" class="md-nav__link">
+    Normal Forms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#joins" class="md-nav__link">
+    JOINs
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -388,6 +409,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#database-normalization" class="md-nav__link">
+    Database Normalization
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#normal-forms" class="md-nav__link">
+    Normal Forms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#joins" class="md-nav__link">
+    JOINs
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -418,11 +460,41 @@
 <li>Easier to organise data into logical tables (content/data management)</li>
 <li>Optimization of execution<ul>
 <li>number and type of calculations add to the execution time</li>
-<li>could get redundant data if you put the tables all together
+<li>prevent redundant data if you put the tables all together
 <img alt="showing duplicate data if we dont split tables" src="../images/tables_split.png" /></li>
 </ul>
 </li>
 </ol>
+<h2 id="database-normalization">Database Normalization</h2>
+<p>Process of organizing a relational database in such a way that it reduces data redundancy and improves data integrity.</p>
+<p>There are essentially three ideas that are aimed at database normalization:</p>
+<ul>
+<li>Are the tables storing logical groupings of the data?</li>
+<li>Can I make changes in a single location, rather than in many tables for the same information?</li>
+<li>Can I access and manipulate data quickly and efficiently?</li>
+</ul>
+<h2 id="normal-forms">Normal Forms</h2>
+<ol>
+<li>
+<p>First normal form (1NF): Each table should have a primary key and all columns in the table should be atomic (indivisible).</p>
+</li>
+<li>
+<p>Second normal form (2NF): All non-key attributes should be fully dependent on the primary key.</p>
+</li>
+<li>
+<p>Third normal form (3NF): All non-key attributes should be dependent only on the primary key, and not on any other non-key attributes.</p>
+</li>
+</ol>
+<p><a href="SQL by Design: Why You Need Database Normalization">aricle on why we need SQL normalization</a></p>
+<h2 id="joins">JOINs</h2>
+<p><code>JOIN</code> is a way to combine data from two or more tables. These are usually done through a <code>primary key</code> to a <code>foriegn key</code> but it can be to <strong>any columns</strong> that have same values.</p>
+<p>We use ON clause to specify a JOIN condition which is a logical statement to combine the table in FROM and JOIN statements.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="o">*</span><span class="p">,</span>
+<span class="w">       </span><span class="n">accounts</span><span class="p">.</span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">accounts</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+</code></pre></div>
 
 
 
