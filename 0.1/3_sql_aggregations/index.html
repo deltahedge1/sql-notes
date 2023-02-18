@@ -66,6 +66,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#sql-aggregations" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -248,10 +253,70 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SQL Aggregations
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         SQL Aggregations
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-aggregations" class="md-nav__link">
+    Summary of Aggregations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aggregations" class="md-nav__link">
+    Aggregations
+  </a>
+  
+    <nav class="md-nav" aria-label="Aggregations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#count" class="md-nav__link">
+    COUNT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -334,6 +399,50 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-aggregations" class="md-nav__link">
+    Summary of Aggregations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aggregations" class="md-nav__link">
+    Aggregations
+  </a>
+  
+    <nav class="md-nav" aria-label="Aggregations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#count" class="md-nav__link">
+    COUNT
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -349,7 +458,59 @@
 
 
 
-
+<h1 id="sql-aggregations">SQL Aggregations</h1>
+<h2 id="introduction">Introduction</h2>
+<p>In this lesson, we will cover and you will be able to:</p>
+<p>Deal with <code>NULL</code> values
+Create aggregations in your SQL Queries including
+<code>COUNT</code>
+<code>SUM</code>
+<code>MIN</code> &amp; <code>MAX</code>
+<code>AVG</code>
+<code>GROUP BY</code>
+<code>DISTINCT</code>
+<code>HAVING</code>
+Create <code>DATE</code> functions
+Implement <code>CASE</code> statements</p>
+<h2 id="summary-of-aggregations">Summary of Aggregations</h2>
+<table>
+<thead>
+<tr>
+<th>Clause</th>
+<th>Description</th>
+<th>Null Treatment</th>
+<th>Alpha treatement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>COUNT</code></td>
+<td>Counting up the number of rows</td>
+<td>Will count all non <code>NULL</code> rows</td>
+<td>Works with alpha characters</td>
+</tr>
+<tr>
+<td>## NULL</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Datatype that specifiies that there is no data exists i.e. it does not necessarily mean 0 it is the absence of data.</p>
+<p><strong>Protip</strong> We don't use =, because NULL isn't considered a value in SQL. Rather, it is a property of the data.</p>
+<p>Filtering for <code>NULL</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">col_1</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+</code></pre></div>
+<p>Filtering for <code>NOT NULL</code>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">col_1</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+</code></pre></div></p>
+<h2 id="aggregations">Aggregations</h2>
+<h3 id="count">COUNT</h3>
 
 
 
