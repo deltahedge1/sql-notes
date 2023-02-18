@@ -295,6 +295,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#null" class="md-nav__link">
+    NULL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#aggregations" class="md-nav__link">
     Aggregations
   </a>
@@ -423,6 +430,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#null" class="md-nav__link">
+    NULL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#aggregations" class="md-nav__link">
     Aggregations
   </a>
@@ -485,18 +499,19 @@ Implement <code>CASE</code> statements</p>
 <tbody>
 <tr>
 <td><code>COUNT</code></td>
-<td>Counting up the number of rows</td>
-<td>Will count all non <code>NULL</code> rows</td>
-<td>Works with alpha characters</td>
+<td>Counts up all items in a column</td>
+<td><code>COUNTS</code> all non <code>NULL</code> values</td>
+<td>Can be used</td>
 </tr>
 <tr>
-<td>## NULL</td>
-<td></td>
-<td></td>
-<td></td>
+<td><code>SUM</code></td>
+<td>Adds up all numbers in a column</td>
+<td><code>SUMS</code> all non <code>NULL</code> values</td>
+<td>Cannot be used</td>
 </tr>
 </tbody>
 </table>
+<h2 id="null">NULL</h2>
 <p>Datatype that specifiies that there is no data exists i.e. it does not necessarily mean 0 it is the absence of data.</p>
 <p><strong>Protip</strong> We don't use =, because NULL isn't considered a value in SQL. Rather, it is a property of the data.</p>
 <p>Filtering for <code>NULL</code></p>
