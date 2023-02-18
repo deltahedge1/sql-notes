@@ -522,14 +522,19 @@ Implement <code>CASE</code> statements</p>
 <td>Can be used</td>
 </tr>
 <tr>
-<td><code>MEAN</code></td>
+<td><code>AVG</code></td>
 <td>returns the mean of the data</td>
 <td>ignores <code>NULL</code> values</td>
 <td>Cannot be used</td>
 </tr>
 </tbody>
 </table>
-<p>Median is more advanced to calculate</p>
+<p><code>AVG</code> when you want to include NULLs as 0</p>
+<p>Use the <code>COALESCE</code> function</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="k">COALESCE</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">average_amount</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
+</code></pre></div>
+<p><code>MEDIAN</code> is more advanced to calculate</p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">,</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span><span class="w"> </span><span class="n">total_rows</span>
 <span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
 <span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">,</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_rows</span>
