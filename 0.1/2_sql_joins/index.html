@@ -291,6 +291,40 @@
     JOINs
   </a>
   
+    <nav class="md-nav" aria-label="JOINs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primary-key" class="md-nav__link">
+    Primary Key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alias" class="md-nav__link">
+    Alias
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-joins" class="md-nav__link">
+    Types of JOINs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -428,6 +462,40 @@
     JOINs
   </a>
   
+    <nav class="md-nav" aria-label="JOINs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#primary-key" class="md-nav__link">
+    Primary Key
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alias" class="md-nav__link">
+    Alias
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#types-of-joins" class="md-nav__link">
+    Types of JOINs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -488,13 +556,65 @@
 <p><a href="SQL by Design: Why You Need Database Normalization">aricle on why we need SQL normalization</a></p>
 <h2 id="joins">JOINs</h2>
 <p><code>JOIN</code> is a way to combine data from two or more tables. These are usually done through a <code>primary key</code> to a <code>foriegn key</code> but it can be to <strong>any columns</strong> that have same values.</p>
+<h3 id="primary-key">Primary Key</h3>
+<p>A primary key is a column or a set of columns in a relational database table that uniquely identifies each row in the table</p>
+<p>It is used to enforce data integrity and ensure that there are no duplicate or null values in the column(s) designated as the <code>primary key</code>.</p>
+<p>A primary key can be a single column or a combination of columns. When a primary key is defined on multiple columns, it is called a <code>composite primary</code> key</p>
+<ol>
+<li>Uniqueness: Each value in the primary key column(s) must be unique.</li>
+<li>Non-nullability: The primary key column(s) cannot contain null values.</li>
+<li>Irreducibility: The primary key column(s) must be irreducible, meaning it should not be possible to remove any part of the primary key and still have a unique identifier for each row in the table.</li>
+</ol>
+<h3 id="syntax">Syntax</h3>
 <p>We use ON clause to specify a JOIN condition which is a logical statement to combine the table in FROM and JOIN statements.</p>
+<p>Example to get <strong>all</strong> columns from the tables <code>orders</code> and <code>accounts</code></p>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="o">*</span><span class="p">,</span>
 <span class="w">       </span><span class="n">accounts</span><span class="p">.</span><span class="o">*</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span>
 <span class="k">JOIN</span><span class="w"> </span><span class="n">accounts</span>
 <span class="k">ON</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
 </code></pre></div>
+<p>Example to get <strong>specific</strong> columns from the tables <code>orders</code> and <code>accounts</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span><span class="p">,</span>
+<span class="w">       </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">accounts</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+</code></pre></div>
+<p>Example to <code>JOIN</code> multiple tables</p>
+<p>Provide a table that provides the region for each sales_rep along with their associated accounts. Your final table should include three columns: the region name, the sales rep name, and the account name. Sort the accounts alphabetically (A-Z) according to account name.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="n">region</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="n">rep</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="n">account</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sales_reps</span><span class="w"> </span><span class="n">s</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">r</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">region_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">id</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="n">a</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">sales_rep_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">id</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="alias">Alias</h3>
+<div class="highlight"><pre><span></span><code><span class="k">Select</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">column1</span><span class="w"> </span><span class="n">aliasname</span><span class="p">,</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">column2</span><span class="w"> </span><span class="n">aliasname2</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">tablename</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t1</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">tablename2</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t2</span>
+</code></pre></div>
+<h3 id="types-of-joins">Types of JOINs</h3>
+<p><img alt="types of joins" src="../images/types_of_joins.png" /></p>
+<p>If there is not matching information for <code>LEFT</code> and <code>RIGHT</code> <code>JOINS</code> in the JOINed table, then you will have columns with empty cells. These empty cells introduce a new data type called NULL</p>
+<p>LEFT JOIN
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">total</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="n">a</span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">account_id</span>
+</code></pre></div></p>
+<p>RIGHT JOIN
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">total</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="n">a</span>
+<span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">accounts_id</span>
+</code></pre></div></p>
+<p><strong>side note: these are the same</strong></p>
+<p><code>LEFT OUTER JOIN</code> and <code>LEFT JOIN</code>
+<code>RIGHT OUTER JOIN</code>and <code>RIGHT JOIN</code>
+<code>FULL OUTER JOIN</code> and <code>OUTER JOIN</code></p>
 
 
 
