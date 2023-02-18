@@ -351,6 +351,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    DISTINCT
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -517,6 +524,13 @@
           <li class="md-nav__item">
   <a href="#group-by" class="md-nav__link">
     GROUP BY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distinct" class="md-nav__link">
+    DISTINCT
   </a>
   
 </li>
@@ -689,6 +703,35 @@
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">total</span>
 </code></pre></div></li>
 <li><code>ORDER BY</code> is temporary and will not change the table</li>
+<li>Evaluated before the <code>LIMIT</code> so all aggregations will be performed so there are no errors, but that means that if you are using <code>LIMIT</code> for performance reasons you won't get any benefit
+<div class="highlight"><pre><span></span><code><span class="cm">/* if you want a performance benefit use a subquery */</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">col1</span><span class="p">,</span><span class="w"> </span><span class="n">col2</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">col2</span><span class="p">)</span><span class="w"> </span><span class="n">total</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">t1</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">col2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;M&#39;</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">col1</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">total</span>
+</code></pre></div></li>
+<li>You can <code>GROUP BY</code> multiple columns at once<ul>
+<li>order of the columns in the <code>ORDER BY</code> does not matter</li>
+<li>you can subsitute numbers for columns</li>
+</ul>
+</li>
+</ul>
+<h3 id="distinct">DISTINCT</h3>
+<ul>
+<li>Provides unique rows for all columns</li>
+<li><code>DISTINCT</code> is always used in <code>SELECT</code> statements</li>
+<li>Only use <code>DISTINCT</code> once<ul>
+<li>Correct
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">column1</span><span class="p">,</span><span class="w"> </span><span class="n">column2</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
+</code></pre></div></li>
+<li>Wrong!
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">column1</span><span class="p">,</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">column2</span><span class="w"> </span><span class="cm">/* do not do this */</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
+</code></pre></div></li>
+</ul>
+</li>
 </ul>
 
 
