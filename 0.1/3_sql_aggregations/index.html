@@ -337,6 +337,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#median-no-function-out-the-box" class="md-nav__link">
+    Median (no function out the box)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -493,6 +500,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#median-no-function-out-the-box" class="md-nav__link">
+    Median (no function out the box)
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -573,33 +587,6 @@
 </tr>
 </tbody>
 </table>
-<p><code>AVG</code> when you want to include NULLs as 0</p>
-<p>Use the <code>COALESCE</code> function</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="k">COALESCE</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">average_amount</span>
-<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
-</code></pre></div>
-<p><code>MEDIAN</code> is more advanced to calculate</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">,</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span><span class="w"> </span><span class="n">total_rows</span>
-<span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
-<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">,</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_rows</span>
-<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">sales</span>
-<span class="p">)</span><span class="w"> </span><span class="n">subquery</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLOOR</span><span class="p">((</span><span class="n">total_rows</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CEILING</span><span class="p">((</span><span class="n">total_rows</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
-</code></pre></div>
-<p>The innermost subquery retrieves the column_name values, assigns a unique row_num to each row using the ROW_NUMBER() function, and calculates the total number of rows in the table using the COUNT(*) OVER() function.</p>
-<div class="highlight"><pre><span></span><code><span class="cm">/* output of subquery */</span>
-<span class="o">+</span><span class="c1">-----------+--------+------------+</span>
-<span class="o">|</span><span class="w"> </span><span class="k">column_name</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">total_rows</span><span class="w"> </span><span class="o">|</span>
-<span class="o">+</span><span class="c1">-----------+--------+------------+</span>
-<span class="o">|</span><span class="w"> </span><span class="mi">50</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="o">|</span><span class="w">      </span><span class="mi">5</span><span class="w"> </span><span class="o">|</span><span class="w">         </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span>
-<span class="o">|</span><span class="w"> </span><span class="mi">60</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="o">|</span><span class="w">      </span><span class="mi">6</span><span class="w"> </span><span class="o">|</span><span class="w">         </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span>
-<span class="o">+</span><span class="c1">-----------+--------+------------+</span>
-</code></pre></div>
-<p>The middle subquery filters the rows that have a row_num equal to either FLOOR((total_rows + 1) / 2.0) or CEILING((total_rows + 1) / 2.0).</p>
-<p>If the number of rows in the table is odd, FLOOR((total_rows + 1) / 2.0) returns the exact middle row number, and the WHERE clause selects that row.</p>
-<p>If the number of rows in the table is even, FLOOR((total_rows + 1) / 2.0) and CEILING((total_rows + 1) / 2.0) return the two middle row numbers, and the WHERE clause selects those two rows.</p>
-<p>The outermost query calculates the median by taking the AVG() of the selected rows.</p>
-<p>In this case, since the sales table has an even number of rows, the middle subquery selects rows 5 and 6 with sales amounts of 50.00 and 60.00.</p>
 <h2 id="null">NULL</h2>
 <p>Datatype that specifiies that there is no data exists i.e. it does not necessarily mean 0 it is the absence of data.</p>
 <p><strong>Protip</strong> We don't use =, because NULL isn't considered a value in SQL. Rather, it is a property of the data.</p>
@@ -643,6 +630,36 @@
 <span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">gloss_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gloss_avg</span><span class="p">,</span>
 <span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">poster_avg</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+</code></pre></div>
+<p><strong><code>AVG</code> when you want to include NULLs as 0</strong></p>
+<ul>
+<li>Use the <code>COALESCE</code> function</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="k">COALESCE</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">average_amount</span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
+</code></pre></div>
+<p>The innermost subquery retrieves the column_name values, assigns a unique row_num to each row using the ROW_NUMBER() function, and calculates the total number of rows in the table using the COUNT(*) OVER() function.</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* output of subquery */</span>
+<span class="o">+</span><span class="c1">-----------+--------+------------+</span>
+<span class="o">|</span><span class="w"> </span><span class="k">column_name</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">total_rows</span><span class="w"> </span><span class="o">|</span>
+<span class="o">+</span><span class="c1">-----------+--------+------------+</span>
+<span class="o">|</span><span class="w"> </span><span class="mi">50</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="o">|</span><span class="w">      </span><span class="mi">5</span><span class="w"> </span><span class="o">|</span><span class="w">         </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="mi">60</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="o">|</span><span class="w">      </span><span class="mi">6</span><span class="w"> </span><span class="o">|</span><span class="w">         </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span>
+<span class="o">+</span><span class="c1">-----------+--------+------------+</span>
+</code></pre></div>
+<p>The middle subquery filters the rows that have a row_num equal to either FLOOR((total_rows + 1) / 2.0) or CEILING((total_rows + 1) / 2.0).</p>
+<p>If the number of rows in the table is odd, FLOOR((total_rows + 1) / 2.0) returns the exact middle row number, and the WHERE clause selects that row.</p>
+<p>If the number of rows in the table is even, FLOOR((total_rows + 1) / 2.0) and CEILING((total_rows + 1) / 2.0) return the two middle row numbers, and the WHERE clause selects those two rows.</p>
+<p>The outermost query calculates the median by taking the AVG() of the selected rows.</p>
+<p>In this case, since the sales table has an even number of rows, the middle subquery selects rows 5 and 6 with sales amounts of 50.00 and 60.00.</p>
+<h3 id="median-no-function-out-the-box">Median (no function out the box)</h3>
+<p><code>MEDIAN</code> is more advanced to calculate</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">,</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span><span class="w"> </span><span class="n">total_rows</span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">,</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_rows</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">sales</span>
+<span class="p">)</span><span class="w"> </span><span class="n">subquery</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLOOR</span><span class="p">((</span><span class="n">total_rows</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CEILING</span><span class="p">((</span><span class="n">total_rows</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
 </code></pre></div>
 
 
