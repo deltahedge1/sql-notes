@@ -66,6 +66,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#sql-joins" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -233,10 +238,43 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SQL JOINs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         SQL JOINs
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-should-we-split-up-the-data-into-different-tables" class="md-nav__link">
+    Why should we split up the data into different tables
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -334,6 +372,23 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-should-we-split-up-the-data-into-different-tables" class="md-nav__link">
+    Why should we split up the data into different tables
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -349,7 +404,25 @@
 
 
 
-
+<h1 id="sql-joins">SQL JOINs</h1>
+<p>In this lesson you will be:</p>
+<ul>
+<li>Creating Joins</li>
+<li>Using Primary - Foreign Keys</li>
+<li>Integrating Aliases</li>
+<li>Evaluating Various Join Types</li>
+<li>Integrating Filters with Joins</li>
+</ul>
+<h2 id="why-should-we-split-up-the-data-into-different-tables">Why should we split up the data into different tables</h2>
+<ol>
+<li>Easier to organise data into logical tables (content/data management)</li>
+<li>Optimization of execution<ul>
+<li>number and type of calculations add to the execution time</li>
+<li>could get redundant data if you put the tables all together
+<img alt="./images/tables_split.png" src="showing duplicate data if we dont split tables" /></li>
+</ul>
+</li>
+</ol>
 
 
 
