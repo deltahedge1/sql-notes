@@ -392,6 +392,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#case" class="md-nav__link">
+    CASE
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -600,6 +607,13 @@
         
       </ul>
     </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#case" class="md-nav__link">
+    CASE
+  </a>
   
 </li>
         
@@ -1025,6 +1039,27 @@
 <span class="k">WHERE</span><span class="w"> </span><span class="n">occurred_at</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="s1">&#39;2014-01-01&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="s1">&#39;2017-01-01&#39;</span>
 <span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span>
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span><span class="w"> </span>
+</code></pre></div>
+<h3 id="case">CASE</h3>
+<ul>
+<li>The CASE statement always goes in the SELECT clause.</li>
+<li>CASE must include the following components: WHEN, THEN, and END. ELSE is an optional component to catch cases that didn’t meet any of the other previous CASE conditions.</li>
+<li>You can make any conditional statement using any conditional operator (like WHERE) between WHEN and THEN. This includes stringing together multiple conditional statements using AND and OR.</li>
+<li>You can include multiple WHEN statements, as well as an ELSE statement again, to deal with any unaddressed conditions.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">standard_qty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">standard_qty</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">                        </span><span class="k">ELSE</span><span class="w"> </span><span class="n">standard_amt_usd</span><span class="o">/</span><span class="n">standard_qty</span><span class="w"> </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">unit_price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span>
+<span class="w">       </span><span class="n">occurred_at</span><span class="p">,</span>
+<span class="w">       </span><span class="n">total</span><span class="p">,</span>
+<span class="w">       </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">500</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;Over 500&#39;</span>
+<span class="w">            </span><span class="k">WHEN</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">300</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;301 - 500&#39;</span>
+<span class="w">            </span><span class="k">WHEN</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;101 - 300&#39;</span>
+<span class="w">            </span><span class="k">ELSE</span><span class="w"> </span><span class="s1">&#39;100 or under&#39;</span><span class="w"> </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_group</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
 </code></pre></div>
 
 

@@ -66,6 +66,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#sub-queries-and-temp-tables" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -263,10 +268,57 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SQL Sub Queries & Temp Tables
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         SQL Sub Queries & Temp Tables
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-do-you-need-a-subquery" class="md-nav__link">
+    When do you need a subquery?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subqueries-vs-joins" class="md-nav__link">
+    Subqueries VS JOINs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subquery-basics" class="md-nav__link">
+    Subquery Basics
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -334,6 +386,37 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-do-you-need-a-subquery" class="md-nav__link">
+    When do you need a subquery?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subqueries-vs-joins" class="md-nav__link">
+    Subqueries VS JOINs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subquery-basics" class="md-nav__link">
+    Subquery Basics
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -349,7 +432,176 @@
 
 
 
-
+<h1 id="sub-queries-and-temp-tables">Sub queries and Temp tables</h1>
+<p>Subquery: a query that runs within an outer query</p>
+<p><img alt="sub query" src="../images/subquery.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">product_id</span><span class="p">,</span>
+<span class="w">       </span><span class="n">name</span><span class="p">,</span>
+<span class="w">       </span><span class="n">price</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">product</span>
+<span class="k">Where</span><span class="w"> </span><span class="n">price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">price</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">product</span><span class="p">)</span><span class="w"> </span><span class="c1">-- right part is subquery</span>
+</code></pre></div>
+<h2 id="when-do-you-need-a-subquery">When do you need a subquery?</h2>
+<ul>
+<li>manipulating an existing table to "pseudo-create" a table which is used as part of a larger query</li>
+</ul>
+<p>Example of when to use subqueries</p>
+<ul>
+<li>Identify the top-selling Amazon products in months where sales have exceeded $1m<ul>
+<li>Existing Table: Amazon daily sales</li>
+<li>Subquery Aggregation: Daily to Monthly</li>
+</ul>
+</li>
+<li>Examine the average price of a brand’s products for the highest-grossing brands<ul>
+<li>Existing Table: Product pricing data across all retailers</li>
+<li>Subquery Aggregation: Individual to Average</li>
+</ul>
+</li>
+<li>Order the annual salary of employees that are working less than 150 hours a month<ul>
+<li>Existing Table: Daily time-table of employees</li>
+<li>Subquery Aggregation: Daily to Monthly</li>
+</ul>
+</li>
+</ul>
+<h2 id="subqueries-vs-joins">Subqueries VS JOINs</h2>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Subquery</th>
+<th>Join</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Use cases</td>
+<td>When an existing table needs to be manipulated or aggregated to then be joined to a larger table.</td>
+<td>A fully flexible and discretionary use case where a user wants to bring two or more tables together and select and filter as needed.</td>
+</tr>
+<tr>
+<td>Syntax</td>
+<td>A subquery is a query within a query. The syntax, as a result, has multiple SELECT and FROM clauses.</td>
+<td>A join is simple stitching together multiple tables with a common key or column. A join clause cannot stand and be run independently</td>
+</tr>
+<tr>
+<td>Dependencies</td>
+<td>A subquery clause can be run completely independently. When trying to debug code, subqueries are often run independently to pressure test results before running the larger query.</td>
+<td>A join clause cannot stand and be run independently.</td>
+</tr>
+<tr>
+<td>Output</td>
+<td>Both subqueries and joins are essentially bringing multiple tables together (whether an existing table is first manipulated or not) to generate a single output.</td>
+<td>Same as previous cell to the left</td>
+</tr>
+<tr>
+<td>Deep Dive Topics</td>
+<td>What happens under the hood: Query plans are similar for both subqueries and joins, read this <a href="https://www.essentialsql.com/what-is-a-query-plan/">link</a></td>
+<td>Same as previous cell to the left</td>
+</tr>
+</tbody>
+</table>
+<h2 id="subquery-basics">Subquery Basics</h2>
+<p><img alt="subquery basics" src="../images/subquery_basics.png" /></p>
+<ul>
+<li>Must be fully placed inside paranthesis</li>
+<li>Must be fully independent and can be executed on their own (except Correlated subqueries)</li>
+<li>Two components of subqueries<ol>
+<li>Placement - Where it is placed<ul>
+<li>With<ul>
+<li>also known as a common table expression (CTE)</li>
+<li>allows you to define a temporary named result set that can be referenced multiple times within a larger query</li>
+<li>common use case is to simplify complex queries or create a temp table with limited rows to improve performance
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">top_paid_employees</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">DESC</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="n">tpe</span><span class="p">.</span><span class="n">salary</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">top_paid_employees</span><span class="w"> </span><span class="n">tpe</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tpe</span><span class="p">.</span><span class="n">employee_id</span><span class="p">;</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>Nested<ul>
+<li>A nested subquery is a subquery that is embedded within another subquery or the main query
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">department_name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">department_id</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
+<span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span>
+<span class="w">    </span><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span>
+<span class="p">);</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>Inline<ul>
+<li>This subquery is used in the same fashion as the WITH use case above. However, instead of the temporary table sitting on top of the larger query, it’s embedded within the from clause.
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">student_name</span>
+<span class="k">FROM</span>
+<span class="w">    </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">student_id</span><span class="p">,</span><span class="w"> </span><span class="n">student_name</span><span class="p">,</span><span class="w"> </span><span class="n">grade</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">teacher</span><span class="w"> </span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">grade</span><span class="w"> </span><span class="o">&gt;</span><span class="mi">80</span><span class="p">;</span>
+</code></pre></div></li>
+</ul>
+</li>
+<li>Scalar<ul>
+<li>A scalar subquery is a subquery that returns a single value, which can be used as part of an expression in the main query
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="p">,</span>
+<span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">min_salary</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Dependencies - with the outer/larger query<ul>
+<li>Simple - The inner subquery is completely independent of the larger query.</li>
+<li>example 1
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">dept_average</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span>
+<span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">dept</span><span class="p">,</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">avg_dept_salary</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employee</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">employee</span><span class="p">.</span><span class="n">dept</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">eid</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">.</span><span class="n">avg_dept_salary</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employee</span><span class="w"> </span><span class="n">E</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">dept</span><span class="p">.</span><span class="n">average</span><span class="w"> </span><span class="n">D</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">dept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D</span><span class="p">.</span><span class="n">dept</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">.</span><span class="n">avg_dept_salary</span>
+</code></pre></div></li>
+<li>Correlated - The inner subquery is dependent on the larger query.</li>
+<li>example 1
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees_db</span><span class="w"> </span><span class="n">emp</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span>
+<span class="w">    </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees_db</span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">department</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">department</span>
+<span class="w">    </span><span class="p">);</span>
+</code></pre></div></li>
+<li>example 1 (pretty sure you can do this with a groupby)
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="p">(</span>
+<span class="w">         </span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">GPA</span><span class="p">)</span>
+<span class="w">         </span><span class="k">FROM</span><span class="w"> </span><span class="n">outer_db</span>
+<span class="w">         </span><span class="k">WHERE</span><span class="w"> </span><span class="n">university</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">outer_db</span><span class="p">.</span><span class="n">university</span><span class="p">)</span><span class="w"> </span><span class="n">GPA</span><span class="p">,</span><span class="w"> </span><span class="n">university</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">student_db</span><span class="w"> </span><span class="n">outer_db</span><span class="p">;</span>
+</code></pre></div></li>
+<li>example 2
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">GPA</span><span class="p">,</span><span class="w"> </span><span class="n">university</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">student_db</span><span class="w"> </span><span class="n">outer_db</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">GPA</span><span class="w"> </span><span class="o">&gt;</span>
+<span class="w">                </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">GPA</span><span class="p">)</span>
+<span class="w">                </span><span class="k">FROM</span><span class="w"> </span><span class="n">student_db</span>
+<span class="w">                </span><span class="k">WHERE</span><span class="w"> </span><span class="n">university</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">outer_db</span><span class="p">.</span><span class="n">university</span><span class="p">);</span>
+</code></pre></div></li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
 
 
 
