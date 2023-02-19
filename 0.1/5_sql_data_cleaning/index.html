@@ -66,6 +66,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#sql-data-cleaning" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -278,10 +283,126 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SQL Data Cleaning
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         SQL Data Cleaning
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-cleaning-strategy" class="md-nav__link">
+    Data Cleaning Strategy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commonly-used-function" class="md-nav__link">
+    Commonly used function
+  </a>
+  
+    <nav class="md-nav" aria-label="Commonly used function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#left" class="md-nav__link">
+    LEFT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#right" class="md-nav__link">
+    RIGHT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#substr" class="md-nav__link">
+    SUBSTR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string_split" class="md-nav__link">
+    STRING_SPLIT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concat" class="md-nav__link">
+    CONCAT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cast" class="md-nav__link">
+    CAST
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#position" class="md-nav__link">
+    POSITION
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strpos" class="md-nav__link">
+    STRPOS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coalesce" class="md-nav__link">
+    COALESCE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -334,6 +455,106 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-cleaning-strategy" class="md-nav__link">
+    Data Cleaning Strategy
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#commonly-used-function" class="md-nav__link">
+    Commonly used function
+  </a>
+  
+    <nav class="md-nav" aria-label="Commonly used function">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#left" class="md-nav__link">
+    LEFT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#right" class="md-nav__link">
+    RIGHT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#substr" class="md-nav__link">
+    SUBSTR
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#string_split" class="md-nav__link">
+    STRING_SPLIT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concat" class="md-nav__link">
+    CONCAT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cast" class="md-nav__link">
+    CAST
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#position" class="md-nav__link">
+    POSITION
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strpos" class="md-nav__link">
+    STRPOS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#coalesce" class="md-nav__link">
+    COALESCE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -349,9 +570,103 @@
 
 
 
+<h1 id="sql-data-cleaning">SQL data cleaning</h1>
+<h2 id="introduction">Introduction</h2>
+<ul>
+<li>Clean and re-structure messy data.</li>
+<li>Convert columns to different data types.</li>
+<li>Tricks for manipulating NULLs.</li>
+<li>Functions covered<ul>
+<li><code>LEFT</code> - extracts the number of characters from a string starting from the left</li>
+<li><code>RIGHT</code> - extracts the number of characters from a string starting from the right</li>
+<li><code>SUBSTR</code> - extracts the substring from a string (starting at any position)</li>
+<li><code>POSITION</code> - returns the position of the first occurence of a substring in a string</li>
+<li><code>STRPOS</code> - Returns the position of substring within a string</li>
+<li><code>CONCAT</code> - adds two or more expressions together</li>
+<li><code>CAST</code> - covers a value of any type into a specific, different data type</li>
+<li><code>COALESCE</code> - returns the first non-null value in a list</li>
+</ul>
+</li>
+</ul>
+<h2 id="data-cleaning-strategy">Data Cleaning Strategy</h2>
+<ol>
+<li>What data do you need?: Review what data you need to run an analysis and solve the problem at hand.</li>
+<li>What data do you have?: Take stock of not only the information you have in your dataset today but what data types those fields are. Do these align with your data needs?</li>
+<li>How will you clean your data?: Build a game plan of how you’ll convert the data you currently have to the data you need. What types of actions and data cleaning techniques will you have to apply? Do you have the skills you need to go from the current to future state?</li>
+<li>How will you analyze your data?: Now, it’s game time! How do you run an effective analysis? Build an approach for analysis, as well. And visualize your plan to solve the problem. Finally, remember to question “so what?” at the end of your results, which will help drive recommendations for your organization.</li>
+</ol>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">LEFT</span><span class="p">(</span><span class="n">primary_poc</span><span class="p">,</span><span class="w"> </span><span class="n">STRPOS</span><span class="p">(</span><span class="n">primary_poc</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span>
 <span class="w">       </span><span class="k">RIGHT</span><span class="p">(</span><span class="n">primary_poc</span><span class="p">,</span><span class="w"> </span><span class="k">LENGTH</span><span class="p">(</span><span class="n">primary_poc</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">STRPOS</span><span class="p">(</span><span class="n">primary_poc</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">))</span><span class="w"> </span><span class="n">last_name</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="commonly-used-function">Commonly used function</h2>
+<h3 id="left">LEFT</h3>
+<div class="highlight"><pre><span></span><code><span class="k">LEFT</span><span class="p">(</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">number_of_character</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">column_name</span>
+</code></pre></div>
+<p><strong><em>Note</em></strong> number_of_characters is inclusive i.e. LEFT('ABC', 2) =&gt; 'AB'</p>
+<h3 id="right">RIGHT</h3>
+<div class="highlight"><pre><span></span><code><span class="k">RIGHT</span><span class="p">(</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">number_of_character</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">column_name</span>
+</code></pre></div>
+<p><strong><em>Note</em></strong> number_of_characters is inclusive i.e. RIGHT('ABC', 2) =&gt; 'BC'</p>
+<h3 id="substr">SUBSTR</h3>
+<div class="highlight"><pre><span></span><code><span class="n">SUBSTR</span><span class="p">(</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="k">start</span><span class="p">,</span><span class="w"> </span><span class="k">length</span><span class="p">)</span>
+</code></pre></div>
+<ul>
+<li>string: the string you are parsing</li>
+<li>start: the start position of the extraction</li>
+<li>length: number of characters to extract</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="n">SUBSTR</span><span class="p">(</span><span class="n">col</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gender</span>
+</code></pre></div>
+<h3 id="string_split">STRING_SPLIT</h3>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">AS</span><span class="p">(</span>
+<span class="k">SELECT</span><span class="w">  </span><span class="n">student_information</span><span class="p">,</span>
+<span class="w">        </span><span class="n">value</span><span class="p">,</span>
+<span class="w">        </span><span class="k">ROW</span><span class="w"> </span><span class="n">_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">student_information</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">NULL</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">row_number</span>
+<span class="k">FROM</span><span class="w">    </span><span class="n">student_db</span>
+<span class="w">        </span><span class="k">CROSS</span><span class="w"> </span><span class="n">APPLY</span><span class="w"> </span><span class="n">STRING_SPLIT</span><span class="p">(</span><span class="n">student_information</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">back_values</span>
+<span class="p">)</span>
+<span class="k">SELECT</span><span class="w">  </span><span class="n">student_information</span><span class="p">,</span>
+<span class="w">        </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">STUDENT_ID</span><span class="p">,</span>
+<span class="w">        </span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">GENDER</span><span class="p">,</span>
+<span class="w">        </span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">CITY</span><span class="p">,</span>
+<span class="w">        </span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">GPA</span><span class="p">,</span>
+<span class="w">        </span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">SALARY</span>
+<span class="k">FROM</span><span class="w">    </span><span class="k">table</span>
+<span class="n">PIVOT</span><span class="p">(</span>
+<span class="w">        </span><span class="k">MAX</span><span class="p">(</span><span class="n">VALUE</span><span class="p">)</span>
+<span class="w">        </span><span class="k">FOR</span><span class="w"> </span><span class="n">row_number</span><span class="w"> </span><span class="k">IN</span><span class="p">([</span><span class="mi">1</span><span class="p">],[</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">],[</span><span class="mi">5</span><span class="p">])</span>
+<span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">PVT</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="concat">CONCAT</h3>
+<div class="highlight"><pre><span></span><code><span class="n">CONCAT</span><span class="p">(</span><span class="n">string1</span><span class="p">,</span><span class="w"> </span><span class="n">string2</span><span class="p">,</span><span class="w"> </span><span class="n">string3</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">CONCAT</span><span class="p">(</span><span class="k">month</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">day</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">year</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">date</span>
+</code></pre></div>
+<h3 id="cast">CAST</h3>
+<div class="highlight"><pre><span></span><code><span class="k">CAST</span><span class="p">(</span><span class="n">expression</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">datatype</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">CAST</span><span class="p">(</span><span class="n">salary</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">int</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="nb">date</span><span class="w"> </span><span class="n">orig_date</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">SUBSTR</span><span class="p">(</span><span class="nb">date</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="k">LEFT</span><span class="p">(</span><span class="nb">date</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="s1">&#39;-&#39;</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">SUBSTR</span><span class="p">(</span><span class="nb">date</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">))::</span><span class="nb">DATE</span><span class="w"> </span><span class="n">new_date</span><span class="w"> </span><span class="c1">-- some other way you can cast </span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sf_crime_data</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="position">POSITION</h3>
+<div class="highlight"><pre><span></span><code><span class="k">POSITION</span><span class="p">(</span><span class="k">substring</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">string</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">POSITION</span><span class="p">(</span><span class="ss">&quot;$&quot;</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="n">student_information</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">salary_starting_position</span>
+</code></pre></div>
+<h3 id="strpos">STRPOS</h3>
+<div class="highlight"><pre><span></span><code><span class="n">STRPOS</span><span class="p">(</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="k">substring</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">LEFT</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">STRPOS</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span>
+<span class="w">       </span><span class="k">RIGHT</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">LENGTH</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">STRPOS</span><span class="p">(</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">))</span><span class="w"> </span><span class="n">last_name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sales_reps</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="coalesce">COALESCE</h3>
+<div class="highlight"><pre><span></span><code><span class="k">COALESCE</span><span class="p">(</span><span class="n">val1</span><span class="p">,</span><span class="w"> </span><span class="n">val2</span><span class="p">,</span><span class="w"> </span><span class="n">val3</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">COALESCE</span><span class="p">(</span><span class="n">hourly_wage</span><span class="o">*</span><span class="mi">40</span><span class="o">*</span><span class="mi">52</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="p">,</span><span class="w"> </span><span class="n">commission</span><span class="o">*</span><span class="n">sales</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">annual_income</span>
 </code></pre></div>
 
 
