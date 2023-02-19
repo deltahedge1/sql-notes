@@ -349,7 +349,10 @@
 
 
 
-
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">LEFT</span><span class="p">(</span><span class="n">primary_poc</span><span class="p">,</span><span class="w"> </span><span class="n">STRPOS</span><span class="p">(</span><span class="n">primary_poc</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="p">)</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span>
+<span class="w">       </span><span class="k">RIGHT</span><span class="p">(</span><span class="n">primary_poc</span><span class="p">,</span><span class="w"> </span><span class="k">LENGTH</span><span class="p">(</span><span class="n">primary_poc</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">STRPOS</span><span class="p">(</span><span class="n">primary_poc</span><span class="p">,</span><span class="w"> </span><span class="s1">&#39; &#39;</span><span class="p">))</span><span class="w"> </span><span class="n">last_name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="p">;</span>
+</code></pre></div>
 
 
 

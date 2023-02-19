@@ -745,6 +745,15 @@
 <span class="w">        </span><span class="n">NTILE</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">composite_score</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">percentile</span>
 <span class="k">FROM</span><span class="w">    </span><span class="n">customer_lead_score</span><span class="p">;</span>
 </code></pre></div>
+<p>Example - get each quartile for each account_id</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
+<span class="w">       </span><span class="n">account_id</span><span class="p">,</span>
+<span class="w">       </span><span class="n">occurred_at</span><span class="p">,</span>
+<span class="w">       </span><span class="n">standard_qty</span><span class="p">,</span>
+<span class="w">       </span><span class="n">NTILE</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_quartile</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span>
+<span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">DESC</span>
+</code></pre></div>
 
 
 
