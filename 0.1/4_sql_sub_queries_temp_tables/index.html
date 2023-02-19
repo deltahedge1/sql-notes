@@ -316,6 +316,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#sql-views" class="md-nav__link">
+    SQL Views
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -412,6 +419,13 @@
         <li class="md-nav__item">
   <a href="#subquery-basics" class="md-nav__link">
     Subquery Basics
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-views" class="md-nav__link">
+    SQL Views
   </a>
   
 </li>
@@ -582,14 +596,14 @@
 <span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">department</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">department</span>
 <span class="w">    </span><span class="p">);</span>
 </code></pre></div></li>
-<li>example 1 (pretty sure you can do this with a groupby)
+<li>example 2 (pretty sure you can do this with a groupby)
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="p">(</span>
 <span class="w">         </span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">GPA</span><span class="p">)</span>
 <span class="w">         </span><span class="k">FROM</span><span class="w"> </span><span class="n">outer_db</span>
 <span class="w">         </span><span class="k">WHERE</span><span class="w"> </span><span class="n">university</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">outer_db</span><span class="p">.</span><span class="n">university</span><span class="p">)</span><span class="w"> </span><span class="n">GPA</span><span class="p">,</span><span class="w"> </span><span class="n">university</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">student_db</span><span class="w"> </span><span class="n">outer_db</span><span class="p">;</span>
 </code></pre></div></li>
-<li>example 2
+<li>example 3
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">GPA</span><span class="p">,</span><span class="w"> </span><span class="n">university</span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">student_db</span><span class="w"> </span><span class="n">outer_db</span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">GPA</span><span class="w"> </span><span class="o">&gt;</span>
@@ -601,6 +615,45 @@
 </li>
 </ol>
 </li>
+</ul>
+<h2 id="sql-views">SQL Views</h2>
+<ul>
+<li>Views are virtual tables that are derived from one or more base tables.</li>
+<li>The term virtual means that the views do not exist physically in a database, instead, they reside in the memory (not database), just like the result of any query is stored in the memory.</li>
+</ul>
+<p>Syntax for creating a view</p>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="o">&lt;</span><span class="n">VIEW_NAME</span><span class="o">&gt;</span>
+<span class="k">AS</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="err">…</span>
+<span class="k">FROM</span><span class="w"> </span><span class="err">…</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="err">…</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">v1</span>
+<span class="k">AS</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Rep_Name</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Region_Name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sales_reps</span><span class="w"> </span><span class="n">S</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">R</span>
+<span class="k">ON</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">region_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">id</span>
+<span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Northeast&#39;</span><span class="p">;</span>
+</code></pre></div>
+<p>Can we update the base tables by updating a view?</p>
+<ul>
+<li>Since views do not exist physically in the database, it is may or may not be possible to execute UPDATE operations on views. </li>
+<li>It depends on the SELECT query used in the view definition. </li>
+<li>Generally, if the SELECT statement contains either an AGGREGATE function, GROUPING, or JOIN, then the view may not update the underlying base tables.</li>
+</ul>
+<p>Can we insert or delete a tuple in the base table by inserting or deleting a tuple in a view?</p>
+<ul>
+<li>Again, it depends on the view definition. If a view is created from a single base table, then yes, you can insert/delete tuples by doing so in the view.</li>
+</ul>
+<p>Can we alter the view definition?</p>
+<ul>
+<li>Most of the databases allow you to alter a view. For example, Oracle and IBM DB2 allows us to alter views and provides CREATE OR REPLACE VIEW option to redefine a view.
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">my_view</span><span class="w"> </span><span class="k">AS</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">column1</span><span class="p">,</span><span class="w"> </span><span class="n">column2</span><span class="p">,</span><span class="w"> </span><span class="n">column3</span><span class="p">,</span><span class="w"> </span><span class="n">column4</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">my_table</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">column5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;new value&#39;</span><span class="p">;</span>
+</code></pre></div></li>
 </ul>
 
 
