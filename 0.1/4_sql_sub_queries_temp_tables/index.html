@@ -330,6 +330,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#subquery-strategy" class="md-nav__link">
+    Subquery strategy
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -440,6 +447,13 @@
         <li class="md-nav__item">
   <a href="#subquery-tradeoffs" class="md-nav__link">
     Subquery tradeoffs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subquery-strategy" class="md-nav__link">
+    Subquery strategy
   </a>
   
 </li>
@@ -678,6 +692,14 @@
 <li><strong><em>Query Plan</em></strong>: What happens under the hood</li>
 </ol>
 <p><a href="https://dev.mysql.com/doc/refman/8.0/en/optimization.html">link</a> for a good guide to sql optimization</p>
+<h2 id="subquery-strategy">Subquery strategy</h2>
+<ol>
+<li>Determine if a subquery is needed (or a join/aggregation function will suffice).</li>
+<li>If a subquery is needed, determine where you’ll need to place it.</li>
+<li>Run the subquery as an independent query first: is the output what you expect?</li>
+<li>Call it something! If you are working with With or Inline subquery, you’ll most certainly need to name it.</li>
+<li>Run the entire query -- both the inner query and outer query.</li>
+</ol>
 
 
 
