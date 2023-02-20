@@ -1,0 +1,801 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../5_sql_data_cleaning/">
+      
+      
+        <link rel="next" href="../7_sql_advanced_joins_performance_tuning/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.12">
+    
+    
+      
+        <title>SQL Window Functions - SQL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sql-window-functions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../.."> 
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="SQL Notes" class="md-header__button md-logo" aria-label="SQL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SQL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              SQL Window Functions
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="SQL Notes" class="md-nav__button md-logo" aria-label="SQL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    SQL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        homepage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_basic_sql/" class="md-nav__link">
+        Basic SQL
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2_sql_joins/" class="md-nav__link">
+        SQL JOINs
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3_sql_aggregations/" class="md-nav__link">
+        SQL Aggregations
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4_sql_sub_queries_temp_tables/" class="md-nav__link">
+        SQL Sub Queries & Temp Tables
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5_sql_data_cleaning/" class="md-nav__link">
+        SQL Data Cleaning
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SQL Window Functions
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        SQL Window Functions
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introdution" class="md-nav__link">
+    Introdution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-window-functions" class="md-nav__link">
+    When to use window functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terms" class="md-nav__link">
+    Terms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-by-vs-partition-by" class="md-nav__link">
+    GROUP BY vs PARTITION BY
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ranking-window-functions" class="md-nav__link">
+    Ranking Window Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alias-for-window-functions" class="md-nav__link">
+    Alias for window functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lag" class="md-nav__link">
+    LAG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lead" class="md-nav__link">
+    LEAD
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#percentiles-ntile" class="md-nav__link">
+    Percentiles NTILE
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7_sql_advanced_joins_performance_tuning/" class="md-nav__link">
+        SQL Advanced JOINS & Performance Tuning
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introdution" class="md-nav__link">
+    Introdution
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-use-window-functions" class="md-nav__link">
+    When to use window functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terms" class="md-nav__link">
+    Terms
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#syntax" class="md-nav__link">
+    Syntax
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#group-by-vs-partition-by" class="md-nav__link">
+    GROUP BY vs PARTITION BY
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ranking-window-functions" class="md-nav__link">
+    Ranking Window Functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alias-for-window-functions" class="md-nav__link">
+    Alias for window functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lag" class="md-nav__link">
+    LAG
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lead" class="md-nav__link">
+    LEAD
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#percentiles-ntile" class="md-nav__link">
+    Percentiles NTILE
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="sql-window-functions">SQL Window Functions</h1>
+<h2 id="introdution">Introdution</h2>
+<p>In this lesson, we will cover window functions. Window functions are primarily used in two ways:</p>
+<ol>
+<li>To understand a running total or a running metric while maintaining individual records</li>
+<li>To rank a dataset</li>
+</ol>
+<p>At the end of this lesson, you will be able to create windows functions using:</p>
+<ul>
+<li>Core Functions</li>
+<li>Ranking Functions</li>
+<li>Advanced Functions</li>
+</ul>
+<h2 id="when-to-use-window-functions">When to use window functions</h2>
+<ol>
+<li>When you want to measure trends or changes over rows or records in your data</li>
+<li>
+<p>When you want to rank a column for outreach or prioritization</p>
+</li>
+<li>
+<p>Measuring changes over time</p>
+</li>
+<li>Has the average price of airline tickets gone up this year</li>
+<li>Whats the best way to keep the running total orders of customers</li>
+<li>The ranking used for outreach prioritization:<ul>
+<li>Use a combinationof factors to rank companies most likely to need a loan</li>
+</ul>
+</li>
+</ol>
+<h2 id="terms">Terms</h2>
+<ul>
+<li>Partition by: A subclause of the OVER clause. Similar to GROUP BY.</li>
+<li>Over: Typically precedes the partition by that signals what to “GROUP BY”.</li>
+<li>Aggregates: Aggregate functions that are used in window functions, too (e.g., sum, count, avg).</li>
+<li>Row_number(): Ranking function where each row gets a different number.</li>
+<li>Rank(): Ranking function where a row could get the same rank if they have the same value.</li>
+<li>Dense_rank(): Ranking function similar to rank() but ranks are not skipped with ties.</li>
+<li>Aliases: Shorthand that can be used if there are several window functions in one query.</li>
+<li>Percentiles: Defines what percentile a value falls into over the entire table.</li>
+<li>Lag/Lead: Calculating differences between rows’ values.</li>
+</ul>
+<h2 id="syntax">Syntax</h2>
+<p><div class="highlight"><pre><span></span><code><span class="n">AGGREGATE_FUNCTION</span><span class="p">(</span><span class="n">column_1</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span>
+<span class="w">    </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">column_2</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">column_3</span><span class="p">)</span>
+<span class="w">    </span><span class="k">AS</span><span class="w"> </span><span class="n">new_column_name</span>
+</code></pre></div>
+1. An aggregation function (e.g., sum, count, or average) + the column you’d like to track
+2. OVER
+3. PARTITION BY + the column you’d like to “group by”
+4. ORDER BY (optional and is often a date column)
+5. AS + the new column name</p>
+<p><a href="https://blog.sqlauthority.com/2015/11/04/sql-server-what-is-the-over-clause-notes-from-the-field-101/">useful link</a></p>
+<h2 id="group-by-vs-partition-by">GROUP BY vs PARTITION BY</h2>
+<table>
+<thead>
+<tr>
+<th>GROUP BY</th>
+<th>PARTITION BY</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The output has a lessened # of records based on the group by column</td>
+<td>The output maintains the # of records in the original table</td>
+</tr>
+<tr>
+<td>The output is one row per group by in the results set</td>
+<td>If the original table had 10 rows, the partition by will maintain 10 rows</td>
+</tr>
+</tbody>
+</table>
+<p><strong><em>Note</em></strong>: You can't use a window function and standard aggregations in the same query. you can’t include window functions in a GROUP BY clause.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">order_id</span><span class="p">,</span>
+<span class="w">       </span><span class="n">order_total</span><span class="p">,</span>
+<span class="w">       </span><span class="n">order_price</span><span class="p">,</span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span>
+<span class="w">           </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly_sales</span><span class="p">,</span>
+<span class="w">       </span><span class="k">COUNT</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span>
+<span class="w">           </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly</span><span class="w"> </span><span class="n">orders</span><span class="p">,</span>
+<span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">order_price</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span>
+<span class="w">           </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">average_monthly_price</span>
+<span class="k">FROM</span><span class="w">  </span><span class="n">amazon_sales_db</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">order_date</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2017-01-01&#39;</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="ranking-window-functions">Ranking Window Functions</h2>
+<ul>
+<li><code>ROW_NUMBER()</code>: Ranking is <strong><em>distinct amongst records</em></strong> even with ties in what the table is ranked against</li>
+<li><code>RANK()</code>: The <strong><em>same amongst tied values</em></strong> and <strong><em>rank skip</em></strong> for subsquent values</li>
+<li><code>DENSE_RANK()</code>: Ranking is the <strong><em>same amongst tied</em></strong> values and ranks <strong><em>do not skip</em></strong> for subsquent values</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>name</th>
+<th>score</th>
+<th>row_num</th>
+<th>rank</th>
+<th>dense_rank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Charlie</td>
+<td>90</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Emily</td>
+<td>90</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Bob</td>
+<td>85</td>
+<td>3</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Dave</td>
+<td>85</td>
+<td>4</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Alice</td>
+<td>80</td>
+<td>5</td>
+<td>5</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Frank</td>
+<td>75</td>
+<td>6</td>
+<td>6</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">score</span><span class="p">,</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span>
+<span class="w">       </span><span class="n">RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">rank</span><span class="p">,</span>
+<span class="w">       </span><span class="n">DENSE_RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dense_rank</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="p">;</span>
+</code></pre></div>
+<h2 id="alias-for-window-functions">Alias for window functions</h2>
+<ul>
+<li>A monthly_window alias function is defined at the end of the query in the WINDOW clause.</li>
+<li>It is then called on each time an aggregate function is used within the SELECT clause.</li>
+</ul>
+<p>syntax</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* previous sql code */</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">AGGREGATE_FUNCTION</span><span class="p">(</span><span class="k">column</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_windows</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">column_name</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="p">...</span>
+<span class="n">WINDOW</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span>
+<span class="w">       </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">order_id</span><span class="p">,</span>
+<span class="w">       </span><span class="n">order_total</span><span class="p">,</span>
+<span class="w">       </span><span class="n">order_price</span><span class="p">,</span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly_sales</span><span class="p">,</span>
+<span class="w">       </span><span class="k">COUNT</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly</span><span class="w"> </span><span class="n">orders</span><span class="p">,</span>
+<span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">order_price</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">average_monthly_price</span>
+<span class="k">FROM</span><span class="w">   </span><span class="n">amazon_sales_db</span>
+<span class="k">WHERE</span><span class="w">  </span><span class="n">order_date</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2017-01-01&#39;</span>
+<span class="n">WINDOW</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span>
+<span class="w">       </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">);</span>
+</code></pre></div>
+<h2 id="lag">LAG</h2>
+<p>syntax</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">LAG</span><span class="p">(</span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lag</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span>
+<span class="w">       </span><span class="n">standard_sum</span><span class="p">,</span>
+<span class="w">       </span><span class="n">LAG</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lag</span>
+<span class="w">       </span><span class="n">standard_sum</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">LAG</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lag_difference</span>
+<span class="k">FROM</span><span class="w">   </span><span class="p">(</span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w">   </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_sum</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w">     </span><span class="n">orders</span>
+<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="n">sub</span>
+</code></pre></div>
+<h2 id="lead">LEAD</h2>
+<p>syntax</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">LEAD</span><span class="p">(</span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lead</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span>
+<span class="w">       </span><span class="n">standard_sum</span><span class="p">,</span>
+<span class="w">       </span><span class="n">LEAD</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lead</span>
+<span class="w">       </span><span class="n">standard_sum</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">LEAD</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lead_difference</span>
+<span class="k">FROM</span><span class="w">   </span><span class="p">(</span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w">   </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_sum</span>
+<span class="w">        </span><span class="k">FROM</span><span class="w">     </span><span class="n">orders</span>
+<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="n">sub</span>
+</code></pre></div>
+<h2 id="percentiles-ntile">Percentiles NTILE</h2>
+<p><img alt="NTILE syntax" src="../images/percentiles.png" /></p>
+<p><img alt="NTILE example" src="../images/percentiles_example.png" /></p>
+<p>Syntax</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NTILE</span><span class="p">(</span><span class="o">#</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">buckets</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">ranking_columns</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">new_column_name</span>
+</code></pre></div>
+<p>Example</p>
+<div class="highlight"><pre><span></span><code><span class="c1">-- NTILE(# of buckets) OVER (ORDER BY ranking_column) AS new_column_name</span>
+
+<span class="k">SELECT</span><span class="w">  </span><span class="n">customer_id</span><span class="p">,</span>
+<span class="w">        </span><span class="n">composite_score</span><span class="p">,</span>
+<span class="w">        </span><span class="n">NTILE</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">composite_score</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">percentile</span>
+<span class="k">FROM</span><span class="w">    </span><span class="n">customer_lead_score</span><span class="p">;</span>
+</code></pre></div>
+<p>Example - get each quartile for each account_id</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
+<span class="w">       </span><span class="n">account_id</span><span class="p">,</span>
+<span class="w">       </span><span class="n">occurred_at</span><span class="p">,</span>
+<span class="w">       </span><span class="n">standard_qty</span><span class="p">,</span>
+<span class="w">       </span><span class="n">NTILE</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_quartile</span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span>
+<span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">DESC</span>
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.4b2c34cd.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,11 +1,30 @@
-site_name: My Docs
+site_name: SQL Notes
 
 nav:
   - homepage: index.md
+  - Basic SQL: 1_basic_sql.md
+  - SQL JOINs: 2_sql_joins.md
+  - SQL Aggregations: 3_sql_aggregations.md
+  - SQL Sub Queries & Temp Tables: 4_sql_sub_queries_temp_tables.md
+  - SQL Data Cleaning: 5_sql_data_cleaning.md
+  - SQL Window Functions: 6_sql_windows_functions.md
+  - SQL Advanced JOINS & Performance Tuning: 7_sql_advanced_joins_performance_tuning.md
 
 theme:
   name: material
   custom_dir:  overrides
+
+markdown_extensions:
+  - pymdownx.snippets:
+      base_path: docs
+      #base_path: $relative
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
 
 extra:
   version:

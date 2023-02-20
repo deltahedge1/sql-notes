@@ -1,0 +1,953 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../2_sql_joins/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.12">
+    
+    
+      
+        <title>Basic SQL - SQL Notes</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#basic-sql" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest version.
+  <a href="../.."> 
+    <strong>Click here to go to latest.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="SQL Notes" class="md-header__button md-logo" aria-label="SQL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            SQL Notes
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Basic SQL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="SQL Notes" class="md-nav__button md-logo" aria-label="SQL Notes" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    SQL Notes
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        homepage
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Basic SQL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Basic SQL
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entity-relationship-diagram" class="md-nav__link">
+    Entity Relationship Diagram
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-is-sql-important" class="md-nav__link">
+    Why is SQL important
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advantages-of-sql" class="md-nav__link">
+    Advantages of SQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-vs-no-sql" class="md-nav__link">
+    SQL vs No SQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-sql-databases" class="md-nav__link">
+    Types of SQL databases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formatting-sql-queries" class="md-nav__link">
+    Formatting SQL queries
+  </a>
+  
+    <nav class="md-nav" aria-label="Formatting SQL queries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    Best practices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-clauses" class="md-nav__link">
+    SQL Clauses
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL Clauses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    LIMIT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    ORDER BY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where" class="md-nav__link">
+    WHERE
+  </a>
+  
+    <nav class="md-nav" aria-label="WHERE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in" class="md-nav__link">
+    IN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not" class="md-nav__link">
+    NOT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#like" class="md-nav__link">
+    LIKE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logical-operators" class="md-nav__link">
+    Logical Operators
+  </a>
+  
+    <nav class="md-nav" aria-label="Logical Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#and" class="md-nav__link">
+    AND
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#between" class="md-nav__link">
+    BETWEEN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../2_sql_joins/" class="md-nav__link">
+        SQL JOINs
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3_sql_aggregations/" class="md-nav__link">
+        SQL Aggregations
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../4_sql_sub_queries_temp_tables/" class="md-nav__link">
+        SQL Sub Queries & Temp Tables
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../5_sql_data_cleaning/" class="md-nav__link">
+        SQL Data Cleaning
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../6_sql_windows_functions/" class="md-nav__link">
+        SQL Window Functions
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../7_sql_advanced_joins_performance_tuning/" class="md-nav__link">
+        SQL Advanced JOINS & Performance Tuning
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#entity-relationship-diagram" class="md-nav__link">
+    Entity Relationship Diagram
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-is-sql-important" class="md-nav__link">
+    Why is SQL important
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advantages-of-sql" class="md-nav__link">
+    Advantages of SQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-vs-no-sql" class="md-nav__link">
+    SQL vs No SQL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types-of-sql-databases" class="md-nav__link">
+    Types of SQL databases
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#formatting-sql-queries" class="md-nav__link">
+    Formatting SQL queries
+  </a>
+  
+    <nav class="md-nav" aria-label="Formatting SQL queries">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    Best practices
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sql-clauses" class="md-nav__link">
+    SQL Clauses
+  </a>
+  
+    <nav class="md-nav" aria-label="SQL Clauses">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#limit" class="md-nav__link">
+    LIMIT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#order-by" class="md-nav__link">
+    ORDER BY
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#where" class="md-nav__link">
+    WHERE
+  </a>
+  
+    <nav class="md-nav" aria-label="WHERE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#in" class="md-nav__link">
+    IN
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not" class="md-nav__link">
+    NOT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#like" class="md-nav__link">
+    LIKE
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#logical-operators" class="md-nav__link">
+    Logical Operators
+  </a>
+  
+    <nav class="md-nav" aria-label="Logical Operators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#and" class="md-nav__link">
+    AND
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#between" class="md-nav__link">
+    BETWEEN
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="basic-sql">Basic SQL</h1>
+<h2 id="overview">Overview</h2>
+<p>Basic SQL Lesson Overview
+In this lesson, we will cover and you will be able to:</p>
+<ul>
+<li>Describe why SQL is important</li>
+<li>Explain how SQL data is stored and structured</li>
+<li>
+<p>Create SQL queries using proper syntax including</p>
+</li>
+<li>
+<p><code>SELECT</code> &amp; <code>FROM</code></p>
+</li>
+<li><code>LIMIT</code></li>
+<li><code>ORDER BY</code></li>
+<li><code>WHERE</code></li>
+<li>Basic arithmetic operations</li>
+<li><code>LIKE</code></li>
+<li><code>IN</code></li>
+<li><code>NOT</code></li>
+<li><code>AND</code> &amp; <code>BETWEEN</code> &amp; <code>OR</code></li>
+</ul>
+<h2 id="entity-relationship-diagram">Entity Relationship Diagram</h2>
+<p>An <strong>entity-relationship diagram (ERD)</strong> is a common way to view data in a database. Below is the ERD for the database we will use from Parch &amp; Posey. These diagrams help you visualize the data you are analyzing including:</p>
+<p>The names of the tables.
+The columns in each table.
+The way the tables work together.</p>
+<p><img alt="Entity relationship diagram" src="../images/ERD.png" /></p>
+<p>The "crow's foot" that connects the tables together shows us how the columns in one table relate to the columns in another table</p>
+<h2 id="why-is-sql-important">Why is SQL important</h2>
+<p>Advantages of using SQL:</p>
+<ol>
+<li>SQL is easy to understand</li>
+<li>Traditional databases allow us to access data directly</li>
+<li>Traditional databases allow us to audit and replicate our data</li>
+<li>SQL is great tool for analysing multiple tables at once</li>
+<li>SQL allows you to analyse more complex questions than dashboards tools like Google Analytics</li>
+</ol>
+<h2 id="advantages-of-sql">Advantages of SQL</h2>
+<ol>
+<li><strong>Data integrity is ensured</strong> - only data you want to be entered is entered, only authourised users will enter data.</li>
+<li><strong>Data can be accessed quickly</strong> - SQL allows you to obtain results very quickly from the DB. Code can be optimized to pull results quickly.</li>
+<li><strong>Data is easily shared</strong> - multiple users can access data stored in a DB, the data is the same for all users allowing for consistent results for anyone with access to you database.</li>
+</ol>
+<h2 id="sql-vs-no-sql">SQL vs No SQL</h2>
+<p>These NoSQL environments tend to be particularly popular for web-based data, but less popular for data that lives in spreadsheets the way we have been analyzing data up to this point.</p>
+<h2 id="types-of-sql-databases">Types of SQL databases</h2>
+<ol>
+<li>MySQL</li>
+<li>Access</li>
+<li>Oracle</li>
+<li>Microsoft SQL Server</li>
+<li>Postgres</li>
+</ol>
+<p><a href="https://www.digitalocean.com/community/tutorials/sqlite-vs-mysql-vs-postgresql-a-comparison-of-relational-database-management-systems">comparison of SQL lite, MYSQL, and PostgreSQL</a></p>
+<h2 id="formatting-sql-queries">Formatting SQL queries</h2>
+<p>Use Upper and Lower cases in SQL</p>
+<p>SQL is case insensitive</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+</code></pre></div>
+<p>same as</p>
+<div class="highlight"><pre><span></span><code><span class="k">select</span><span class="w"> </span><span class="n">account_id</span>
+<span class="k">from</span><span class="w"> </span><span class="n">orders</span>
+</code></pre></div>
+<h3 id="best-practices">Best practices</h3>
+<ol>
+<li>Capitalize all SQL commands, like <code>SELECT</code> and <code>FROM</code>, and keep everything else in your query lower case</li>
+<li>Avoid spaces in Table and Variable Names<ul>
+<li>e.g. Table Name =&gt; table_name</li>
+</ul>
+</li>
+<li>Use white spaces
+<div class="highlight"><pre><span></span><code><span class="cm">/*good example */</span>
+<span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="cm">/*bad example */</span>
+<span class="k">SELECT</span><span class="w">              </span><span class="n">account_id</span>
+
+<span class="k">FROM</span><span class="w">               </span><span class="n">orders</span>
+</code></pre></div></li>
+<li>Semicolons
+depending on your sql environment you may need a semi colon
+<div class="highlight"><pre><span></span><code><span class="cm">/*with semi colon*/</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="cm">/*without semi colon*/</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+</code></pre></div></li>
+</ol>
+<h2 id="sql-clauses">SQL Clauses</h2>
+<h3 id="limit">LIMIT</h3>
+<p>The LIMIT statement is useful when you want to see just the first few rows of a table. This can be much faster for loading than if we load the entire dataset.</p>
+<p>Always used as the last part of query.</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+</code></pre></div>
+<h3 id="order-by">ORDER BY</h3>
+<p>The ORDER BY statement allows us to sort our results using the data in any column</p>
+<p>Using ORDER BY in a SQL query only has temporary effects, for the results of that query</p>
+<ol>
+<li>
+<p>First, the query sorts the results in ascending order based on the values in the column specified in the ORDER BY clause.</p>
+</li>
+<li>
+<p>When there are multiple rows with the same value in the specified column, the query then sorts those rows based on the case sensitivity of the characters in the column values. In general, uppercase letters come before lowercase letters in the sort order.</p>
+</li>
+<li>
+<p>When there are still multiple rows with the same value in the specified column and the same case sensitivity, the query then sorts those rows based on the numeric values of the characters in the column values.</p>
+</li>
+</ol>
+<p>For example, if you have a column with the following values: "B", "2", "a", "1", "C", the order in which the query would sort these values would be: "1", "2", "a", "B", "C".</p>
+<p><strong>The ORDER BY statement always comes in a query after the <code>SELECT</code> and <code>FROM</code> statements, but before the <code>LIMIT</code> statement</strong></p>
+<p><strong>Pro Tip</strong>: to order descending use <code>DESC</code> in the  <code>ORDER BY</code> clause </p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">occurred_at</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+</code></pre></div>
+<p>You can <code>ORDER BY</code> more than one column by using a <code>,</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">occurred_at</span><span class="p">,</span><span class="w"> </span><span class="n">total_amt_usd</span><span class="w"> </span><span class="k">DESC</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+</code></pre></div>
+<p><strong>Pro Tip</strong>: to remove the case sensitivity when ordering use LOWER or UPPER</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">LOWER</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Pro Tip</strong>: you can use numbers in an <code>ORDER BY</code></p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">occurred_at</span><span class="p">,</span><span class="w"> </span><span class="k">location</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span>
+</code></pre></div>
+<h3 id="where">WHERE</h3>
+<p>Using the WHERE statement, we can display subsets of tables based on conditions that must be met. You can also think of the WHERE command as filtering the data.</p>
+<p>Common symbols used in WHERE statements include:</p>
+<ul>
+<li><code>&gt;</code> (greater than)</li>
+<li><code>&lt;</code> (less than)</li>
+<li><code>&gt;=</code> (greater than or equal to)</li>
+<li><code>&lt;=</code> (less than or equal to)</li>
+<li><code>=</code> (equal to)</li>
+<li><code>`!=</code> (not equal to)</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4251</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">occurred_at</span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+</code></pre></div>
+<h4 id="in">IN</h4>
+<p>The <code>IN</code> operator is useful for working with both numeric and text columns. This operator allows you to use an =, but for more than one item of that particular column</p>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="mi">1001</span><span class="p">,</span><span class="mi">1021</span><span class="p">);</span>
+</code></pre></div>
+<h4 id="not">NOT</h4>
+<p>The NOT operator is an extremely useful operator for working with the previous two operators we introduced: <code>IN</code> and <code>LIKE</code>. By specifying <code>NOT LIKE</code> or <code>NOT IN</code>, we can grab all of the rows that do not meet particular criteria.</p>
+<p>NOT IN example
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">sales_rep_id</span><span class="p">,</span><span class="w"> </span>
+<span class="w">       </span><span class="n">name</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">sales_rep_id</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="mi">321500</span><span class="p">,</span><span class="mi">321570</span><span class="p">)</span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">sales_rep_id</span>
+</code></pre></div></p>
+<p>NOT LIKE example
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">website</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%com%&#39;</span><span class="p">;</span>
+</code></pre></div></p>
+<h4 id="like">LIKE</h4>
+<p>The <code>LIKE</code> operator is used to check a specific character or unknown length of characters when searching through text.</p>
+<p>The <code>pattern</code> can contain two special wildcard characters:</p>
+<p><code>%</code> - represents any number of characters
+<code>_</code> - represents a single character</p>
+<ul>
+<li>Example 1: Select all the customers whose name starts with the letter 'A'
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">customers</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">customer_name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;A%&#39;</span><span class="p">;</span>
+</code></pre></div></li>
+<li>Example 2: Select all the products whose name contains the word 'chocolate'
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">products</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">products</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;%chocolate%&#39;</span>
+</code></pre></div></li>
+<li>Example 3: Select all the orders with order number starting with 'OD' and ending with '8'
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">products</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;OD%8&#39;</span>
+</code></pre></div></li>
+<li>Example 4: Select all the customers whose name is exactly 5 characters long and ends with 's'
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">products</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="k">LIKE</span><span class="w"> </span><span class="s1">&#39;_____s&#39;</span>
+</code></pre></div></li>
+</ul>
+<h3 id="logical-operators">Logical Operators</h3>
+<h4 id="and">AND</h4>
+<p><code>AND</code> operator is used within the <code>WHERE</code> clause.</p>
+<p>It is used to combine logical clauses together.</p>
+<div class="highlight"><pre><span></span><code><span class="k">WHERE</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">10</span>
+</code></pre></div>
+<h4 id="between">BETWEEN</h4>
+<p><code>BETWEEN</code> operatoris used for when we want to be between two values</p>
+<div class="highlight"><pre><span></span><code><span class="k">WHERE</span><span class="w"> </span><span class="k">column</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="mi">10</span>
+</code></pre></div>
+<p><strong>Pro Tip</strong>: for Dates you put the start date and then a day after the end date beacuse the boundary is at 12am</p>
+<div class="highlight"><pre><span></span><code><span class="cm">/* dates in the year of 2016 */</span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">occurred_at</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="s1">&#39;2016-01-01&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="err">&#39;</span><span class="mi">2017</span><span class="o">-</span><span class="mi">01</span><span class="o">-</span><span class="mi">01</span><span class="o">`</span><span class="w"> </span>
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.4b2c34cd.min.js"></script>
+      
+    
+  </body>
+</html>
