@@ -8,14 +8,8 @@
       
       
       
-      
-        <link rel="prev" href="../1_basic_sql/">
-      
-      
-        <link rel="next" href="../3_sql_aggregations/">
-      
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.12">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
@@ -23,10 +17,11 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        
       
       
 
@@ -57,7 +52,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
   
     
     
@@ -151,7 +146,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
+          <ol class="md-search-result__list"></ol>
         </div>
       </div>
     </div>
@@ -235,7 +230,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
         
@@ -527,7 +522,6 @@
                   
 
 
-
 <h1 id="sql-joins">SQL JOINs</h1>
 <p>In this lesson you will be:</p>
 <ul>
@@ -584,48 +578,48 @@
 <h3 id="syntax">Syntax</h3>
 <p>We use ON clause to specify a JOIN condition which is a logical statement to combine the table in FROM and JOIN statements.</p>
 <p>Example to get <strong>all</strong> columns from the tables <code>orders</code> and <code>accounts</code></p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="o">*</span><span class="p">,</span>
-<span class="w">       </span><span class="n">accounts</span><span class="p">.</span><span class="o">*</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="o">*</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">accounts</span><span class="p">.</span><span class="o">*</span><span class="w"></span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span>
-<span class="k">JOIN</span><span class="w"> </span><span class="n">accounts</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">accounts</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <p>Example to get <strong>specific</strong> columns from the tables <code>orders</code> and <code>accounts</code></p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span><span class="p">,</span>
-<span class="w">       </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">total</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span><span class="w"></span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span>
-<span class="k">JOIN</span><span class="w"> </span><span class="n">accounts</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span><span class="p">;</span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">accounts</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">orders</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <p>Example to <code>JOIN</code> multiple tables</p>
 <p>Provide a table that provides the region for each sales_rep along with their associated accounts. Your final table should include three columns: the region name, the sales rep name, and the account name. Sort the accounts alphabetically (A-Z) according to account name.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="n">region</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="n">rep</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="n">account</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">sales_reps</span><span class="w"> </span><span class="n">s</span>
-<span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">r</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">region_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">id</span>
-<span class="k">JOIN</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="n">a</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">sales_rep_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">id</span>
-<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="n">region</span><span class="p">,</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="n">rep</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="n">account</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sales_reps</span><span class="w"> </span><span class="n">s</span><span class="w"></span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">r</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">region_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">id</span><span class="w"></span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="n">a</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">sales_rep_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s</span><span class="p">.</span><span class="n">id</span><span class="w"></span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <h3 id="alias">Alias</h3>
-<div class="highlight"><pre><span></span><code><span class="k">Select</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">column1</span><span class="w"> </span><span class="n">aliasname</span><span class="p">,</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">column2</span><span class="w"> </span><span class="n">aliasname2</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">tablename</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t1</span>
-<span class="k">JOIN</span><span class="w"> </span><span class="n">tablename2</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t2</span>
+<div class="highlight"><pre><span></span><code><span class="k">Select</span><span class="w"> </span><span class="n">t1</span><span class="p">.</span><span class="n">column1</span><span class="w"> </span><span class="n">aliasname</span><span class="p">,</span><span class="w"> </span><span class="n">t2</span><span class="p">.</span><span class="n">column2</span><span class="w"> </span><span class="n">aliasname2</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">tablename</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t1</span><span class="w"></span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">tablename2</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">t2</span><span class="w"></span>
 </code></pre></div>
 <h3 id="types-of-joins">Types of JOINs</h3>
 <p><img alt="types of joins" src="../images/types_of_joins.png" /></p>
 <p>If there is not matching information for <code>LEFT</code> and <code>RIGHT</code> <code>JOINS</code> in the JOINed table, then you will have columns with empty cells. These empty cells introduce a new data type called NULL</p>
 <p>LEFT JOIN
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">total</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="n">a</span>
-<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">account_id</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">total</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="n">a</span><span class="w"></span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">account_id</span><span class="w"></span>
 </code></pre></div></p>
 <p>RIGHT JOIN
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">total</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="n">a</span>
-<span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">accounts_id</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">total</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="n">a</span><span class="w"></span>
+<span class="k">RIGHT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">accounts_id</span><span class="w"></span>
 </code></pre></div></p>
 <p><strong>Side Note: These are the same</strong></p>
 <p><code>LEFT OUTER JOIN</code> and <code>LEFT JOIN</code></p>
@@ -646,6 +640,42 @@
       </main>
       
         <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../1_basic_sql/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Basic SQL" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Basic SQL
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../3_sql_aggregations/" class="md-footer__link md-footer__link--next" aria-label="Next: SQL Aggregations" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              SQL Aggregations
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -668,11 +698,12 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.4b2c34cd.min.js"></script>
+      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
       
+    
     
   </body>
 </html>

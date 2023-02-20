@@ -8,14 +8,8 @@
       
       
       
-      
-        <link rel="prev" href="../3_sql_aggregations/">
-      
-      
-        <link rel="next" href="../5_sql_data_cleaning/">
-      
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.12">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
@@ -23,10 +17,11 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        
       
       
 
@@ -57,7 +52,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
   
     
     
@@ -151,7 +146,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
+          <ol class="md-search-result__list"></ol>
         </div>
       </div>
     </div>
@@ -265,7 +260,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
         
@@ -473,14 +468,13 @@
                   
 
 
-
 <h1 id="sub-queries-and-temp-tables">Sub queries and Temp tables</h1>
 <p>Subquery: a query that runs within an outer query</p>
 <p><img alt="sub query" src="../images/subquery.png" /></p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">product_id</span><span class="p">,</span>
-<span class="w">       </span><span class="n">name</span><span class="p">,</span>
-<span class="w">       </span><span class="n">price</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">product</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">product_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">name</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">price</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">product</span><span class="w"></span>
 <span class="k">Where</span><span class="w"> </span><span class="n">price</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">price</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">db</span><span class="p">.</span><span class="n">product</span><span class="p">)</span><span class="w"> </span><span class="c1">-- right part is subquery</span>
 </code></pre></div>
 <h2 id="when-do-you-need-a-subquery">When do you need a subquery?</h2>
@@ -553,48 +547,48 @@
 <li>also known as a common table expression (CTE)</li>
 <li>allows you to define a temporary named result set that can be referenced multiple times within a larger query</li>
 <li>common use case is to simplify complex queries or create a temp table with limited rows to improve performance
-<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">top_paid_employees</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span>
-<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
-<span class="w">    </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">DESC</span>
-<span class="w">    </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span>
-<span class="p">)</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="n">tpe</span><span class="p">.</span><span class="n">salary</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span>
-<span class="k">JOIN</span><span class="w"> </span><span class="n">top_paid_employees</span><span class="w"> </span><span class="n">tpe</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tpe</span><span class="p">.</span><span class="n">employee_id</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">top_paid_employees</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="w"></span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
+<span class="w">    </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="k">DESC</span><span class="w"></span>
+<span class="w">    </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">department_id</span><span class="p">,</span><span class="w"> </span><span class="n">tpe</span><span class="p">.</span><span class="n">salary</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"> </span><span class="n">e</span><span class="w"></span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">top_paid_employees</span><span class="w"> </span><span class="n">tpe</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">employee_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tpe</span><span class="p">.</span><span class="n">employee_id</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></li>
 </ul>
 </li>
 <li>Nested<ul>
 <li>A nested subquery is a subquery that is embedded within another subquery or the main query
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">department_name</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span>
-<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">department_id</span>
-<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span>
-<span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span>
-<span class="w">    </span><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span>
-<span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">departments</span><span class="w"> </span><span class="n">d</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">department_id</span><span class="w"> </span><span class="k">IN</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">    </span><span class="k">SELECT</span><span class="w"> </span><span class="n">department_id</span><span class="w"></span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="w"></span>
+<span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span><span class="w"></span>
+<span class="w">    </span><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
+<span class="p">);</span><span class="w"></span>
 </code></pre></div></li>
 </ul>
 </li>
 <li>Inline<ul>
 <li>This subquery is used in the same fashion as the WITH use case above. However, instead of the temporary table sitting on top of the larger query, it’s embedded within the from clause.
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">student_name</span>
-<span class="k">FROM</span>
-<span class="w">    </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">student_id</span><span class="p">,</span><span class="w"> </span><span class="n">student_name</span><span class="p">,</span><span class="w"> </span><span class="n">grade</span>
-<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span>
-<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">teacher</span><span class="w"> </span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">grade</span><span class="w"> </span><span class="o">&gt;</span><span class="mi">80</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">student_name</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">student_id</span><span class="p">,</span><span class="w"> </span><span class="n">student_name</span><span class="p">,</span><span class="w"> </span><span class="n">grade</span><span class="w"></span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"></span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">teacher</span><span class="w"> </span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">grade</span><span class="w"> </span><span class="o">&gt;</span><span class="mi">80</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></li>
 </ul>
 </li>
 <li>Scalar<ul>
 <li>A scalar subquery is a subquery that returns a single value, which can be used as part of an expression in the main query
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="p">,</span>
-<span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">min_salary</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">salary</span><span class="p">,</span><span class="w"></span>
+<span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">min_salary</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></li>
 </ul>
 </li>
@@ -604,40 +598,40 @@
 <li>Simple - The inner subquery is completely independent of the larger query.</li>
 <li>example 1
 <div class="highlight"><pre><span></span><code><span class="k">WITH</span><span class="w"> </span><span class="n">dept_average</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span>
-<span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">dept</span><span class="p">,</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">avg_dept_salary</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">employee</span>
-<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">employee</span><span class="p">.</span><span class="n">dept</span>
-<span class="p">)</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">eid</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">.</span><span class="n">avg_dept_salary</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">employee</span><span class="w"> </span><span class="n">E</span>
-<span class="k">JOIN</span><span class="w"> </span><span class="n">dept</span><span class="p">.</span><span class="n">average</span><span class="w"> </span><span class="n">D</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">dept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D</span><span class="p">.</span><span class="n">dept</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">.</span><span class="n">avg_dept_salary</span>
+<span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">dept</span><span class="p">,</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">avg_dept_salary</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employee</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">employee</span><span class="p">.</span><span class="n">dept</span><span class="w"></span>
+<span class="p">)</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">eid</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">ename</span><span class="p">,</span><span class="w"> </span><span class="n">D</span><span class="p">.</span><span class="n">avg_dept_salary</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employee</span><span class="w"> </span><span class="n">E</span><span class="w"></span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">dept</span><span class="p">.</span><span class="n">average</span><span class="w"> </span><span class="n">D</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">dept</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">D</span><span class="p">.</span><span class="n">dept</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">E</span><span class="p">.</span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">D</span><span class="p">.</span><span class="n">avg_dept_salary</span><span class="w"></span>
 </code></pre></div></li>
 <li>Correlated - The inner subquery is dependent on the larger query.</li>
 <li>example 1
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">employees_db</span><span class="w"> </span><span class="n">emp</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">employee_id</span><span class="p">,</span><span class="w"> </span><span class="n">name</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">employees_db</span><span class="w"> </span><span class="n">emp</span><span class="w"></span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">salary</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span>
-<span class="w">    </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span>
-<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees_db</span>
-<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">department</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">department</span>
-<span class="w">    </span><span class="p">);</span>
+<span class="w">    </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">employees_db</span><span class="w"></span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">department</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emp</span><span class="p">.</span><span class="n">department</span><span class="w"></span>
+<span class="w">    </span><span class="p">);</span><span class="w"></span>
 </code></pre></div></li>
 <li>example 2 (pretty sure you can do this with a groupby)
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="p">(</span>
-<span class="w">         </span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">GPA</span><span class="p">)</span>
-<span class="w">         </span><span class="k">FROM</span><span class="w"> </span><span class="n">outer_db</span>
-<span class="w">         </span><span class="k">WHERE</span><span class="w"> </span><span class="n">university</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">outer_db</span><span class="p">.</span><span class="n">university</span><span class="p">)</span><span class="w"> </span><span class="n">GPA</span><span class="p">,</span><span class="w"> </span><span class="n">university</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">student_db</span><span class="w"> </span><span class="n">outer_db</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">         </span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">GPA</span><span class="p">)</span><span class="w"></span>
+<span class="w">         </span><span class="k">FROM</span><span class="w"> </span><span class="n">outer_db</span><span class="w"></span>
+<span class="w">         </span><span class="k">WHERE</span><span class="w"> </span><span class="n">university</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">outer_db</span><span class="p">.</span><span class="n">university</span><span class="p">)</span><span class="w"> </span><span class="n">GPA</span><span class="p">,</span><span class="w"> </span><span class="n">university</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">student_db</span><span class="w"> </span><span class="n">outer_db</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></li>
 <li>example 3
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">GPA</span><span class="p">,</span><span class="w"> </span><span class="n">university</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">student_db</span><span class="w"> </span><span class="n">outer_db</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">GPA</span><span class="w"> </span><span class="o">&gt;</span>
-<span class="w">                </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">GPA</span><span class="p">)</span>
-<span class="w">                </span><span class="k">FROM</span><span class="w"> </span><span class="n">student_db</span>
-<span class="w">                </span><span class="k">WHERE</span><span class="w"> </span><span class="n">university</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">outer_db</span><span class="p">.</span><span class="n">university</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">first_name</span><span class="p">,</span><span class="w"> </span><span class="n">last_name</span><span class="p">,</span><span class="w"> </span><span class="n">GPA</span><span class="p">,</span><span class="w"> </span><span class="n">university</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">student_db</span><span class="w"> </span><span class="n">outer_db</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">GPA</span><span class="w"> </span><span class="o">&gt;</span><span class="w"></span>
+<span class="w">                </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">GPA</span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="k">FROM</span><span class="w"> </span><span class="n">student_db</span><span class="w"></span>
+<span class="w">                </span><span class="k">WHERE</span><span class="w"> </span><span class="n">university</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">outer_db</span><span class="p">.</span><span class="n">university</span><span class="p">);</span><span class="w"></span>
 </code></pre></div></li>
 </ul>
 </li>
@@ -652,19 +646,19 @@
 <li>The term virtual means that the views do not exist physically in a database, instead, they reside in the memory (not database), just like the result of any query is stored in the memory.</li>
 </ul>
 <p>Syntax for creating a view</p>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="o">&lt;</span><span class="n">VIEW_NAME</span><span class="o">&gt;</span>
-<span class="k">AS</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="err">…</span>
-<span class="k">FROM</span><span class="w"> </span><span class="err">…</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="err">…</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="o">&lt;</span><span class="n">VIEW_NAME</span><span class="o">&gt;</span><span class="w"></span>
+<span class="k">AS</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="err">…</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="err">…</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="err">…</span><span class="w"></span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">v1</span>
-<span class="k">AS</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Rep_Name</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Region_Name</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">sales_reps</span><span class="w"> </span><span class="n">S</span>
-<span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">R</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">region_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">id</span>
-<span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Northeast&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">v1</span><span class="w"></span>
+<span class="k">AS</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Rep_Name</span><span class="p">,</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">Region_Name</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sales_reps</span><span class="w"> </span><span class="n">S</span><span class="w"></span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="n">R</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">S</span><span class="p">.</span><span class="n">region_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">id</span><span class="w"></span>
+<span class="k">AND</span><span class="w"> </span><span class="n">R</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Northeast&#39;</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <p>Can we update the base tables by updating a view?</p>
 <ul>
@@ -679,10 +673,10 @@
 <p>Can we alter the view definition?</p>
 <ul>
 <li>Most of the databases allow you to alter a view. For example, Oracle and IBM DB2 allows us to alter views and provides CREATE OR REPLACE VIEW option to redefine a view.
-<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">my_view</span><span class="w"> </span><span class="k">AS</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">column1</span><span class="p">,</span><span class="w"> </span><span class="n">column2</span><span class="p">,</span><span class="w"> </span><span class="n">column3</span><span class="p">,</span><span class="w"> </span><span class="n">column4</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">my_table</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">column5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;new value&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">CREATE</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="k">ALTER</span><span class="w"> </span><span class="k">VIEW</span><span class="w"> </span><span class="n">my_view</span><span class="w"> </span><span class="k">AS</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">column1</span><span class="p">,</span><span class="w"> </span><span class="n">column2</span><span class="p">,</span><span class="w"> </span><span class="n">column3</span><span class="p">,</span><span class="w"> </span><span class="n">column4</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">my_table</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">column5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;new value&#39;</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></li>
 </ul>
 <h2 id="subquery-tradeoffs">Subquery tradeoffs</h2>
@@ -716,6 +710,42 @@
       
         <footer class="md-footer">
   
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../3_sql_aggregations/" class="md-footer__link md-footer__link--prev" aria-label="Previous: SQL Aggregations" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              SQL Aggregations
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../5_sql_data_cleaning/" class="md-footer__link md-footer__link--next" aria-label="Next: SQL Data Cleaning" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              SQL Data Cleaning
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
       <div class="md-copyright">
@@ -737,11 +767,12 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.4b2c34cd.min.js"></script>
+      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
       
+    
     
   </body>
 </html>

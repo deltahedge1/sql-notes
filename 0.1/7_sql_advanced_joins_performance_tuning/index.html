@@ -8,12 +8,8 @@
       
       
       
-      
-        <link rel="prev" href="../6_sql_windows_functions/">
-      
-      
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.12">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
@@ -21,10 +17,11 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        
       
       
 
@@ -55,7 +52,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
   
     
     
@@ -149,7 +146,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
+          <ol class="md-search-result__list"></ol>
         </div>
       </div>
     </div>
@@ -308,7 +305,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
         
@@ -537,7 +534,6 @@
                   
 
 
-
 <h1 id="sql-advanced-joins-and-performance-tuning">SQL Advanced JOINs and Performance Tuning</h1>
 <ul>
 <li>Create fast-running queries with advanced joins</li>
@@ -547,47 +543,47 @@
 </ul>
 <h2 id="full-outer-join">FULL OUTER JOIN</h2>
 <p><img alt="full outer join venn diagram" src="../images/full_outer_join.png" /></p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">Table_A</span>
-<span class="k">FULL</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Table_B</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Table_A</span><span class="p">.</span><span class="k">column_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Table_B</span><span class="p">.</span><span class="k">column_name</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Table_A</span><span class="w"></span>
+<span class="k">FULL</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Table_B</span><span class="w"> </span><span class="k">ON</span><span class="w"> </span><span class="n">Table_A</span><span class="p">.</span><span class="k">column_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Table_B</span><span class="p">.</span><span class="k">column_name</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <h2 id="return-all-unmatched-rows">RETURN ALL UNMATCHED ROWS</h2>
 <p><img alt="non matched rows" src="../images/all_non_matching.png" /></p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">column_names</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">Table_A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ta</span>
-<span class="k">FULL</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Table_B</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tb</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">ta</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tb</span><span class="p">.</span><span class="n">id</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">ta</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">tb</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">column_names</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">Table_A</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">ta</span><span class="w"></span>
+<span class="k">FULL</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">Table_B</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">tb</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">ta</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tb</span><span class="p">.</span><span class="n">id</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">ta</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">tb</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"></span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">accounts_id</span><span class="p">,</span><span class="w"> </span><span class="n">sr</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sales_rep_id</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span>
-<span class="k">FULL</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">sales_reps</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">sr</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">sales_rep_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sr</span><span class="p">.</span><span class="n">id</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">sr</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">accounts_id</span><span class="p">,</span><span class="w"> </span><span class="n">sr</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sales_rep_id</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w"></span>
+<span class="k">FULL</span><span class="w"> </span><span class="k">OUTER</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">sales_reps</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">sr</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">sales_rep_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sr</span><span class="p">.</span><span class="n">id</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">sr</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"></span>
 </code></pre></div>
 <h2 id="joins-with-comparison-operators">JOINs with Comparison Operators</h2>
 <p><strong>Pro Tip</strong>: If you recall from earlier lessons on joins, the join clause is evaluated before the where clause -- filtering in the join clause will eliminate rows before they are joined, while filtering in the WHERE clause will leave those rows in and produce some nulls.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">account_name</span><span class="p">,</span>
-<span class="w">       </span><span class="n">accounts</span><span class="p">.</span><span class="n">primary_poc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">poc_name</span><span class="p">,</span>
-<span class="w">       </span><span class="n">sales_reps</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">sales_rep_name</span>
-<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span>
-<span class="w">  </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">sales_reps</span>
-<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">sales_rep_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sales_reps</span><span class="p">.</span><span class="n">id</span>
-<span class="w">   </span><span class="k">AND</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">primary_poc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sales_reps</span><span class="p">.</span><span class="n">name</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">account_name</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">accounts</span><span class="p">.</span><span class="n">primary_poc</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">poc_name</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">sales_reps</span><span class="p">.</span><span class="n">name</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">sales_rep_name</span><span class="w"></span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="w"></span>
+<span class="w">  </span><span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">sales_reps</span><span class="w"></span>
+<span class="w">    </span><span class="k">ON</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">sales_rep_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sales_reps</span><span class="p">.</span><span class="n">id</span><span class="w"></span>
+<span class="w">   </span><span class="k">AND</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">primary_poc</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sales_reps</span><span class="p">.</span><span class="n">name</span><span class="w"></span>
 </code></pre></div>
 <h2 id="self-joins">Self JOINs</h2>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">o1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o1_id</span><span class="p">,</span>
-<span class="w">       </span><span class="n">o1</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o1_account_id</span><span class="p">,</span>
-<span class="w">       </span><span class="n">o1</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o1_occurred_at</span><span class="p">,</span>
-<span class="w">       </span><span class="n">o2</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o2_id</span><span class="p">,</span>
-<span class="w">       </span><span class="n">o2</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o2_account_id</span><span class="p">,</span>
-<span class="w">       </span><span class="n">o2</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o2_occurred_at</span>
-<span class="k">FROM</span><span class="w">   </span><span class="n">orders</span><span class="w"> </span><span class="n">o1</span>
-<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o2</span>
-<span class="k">ON</span><span class="w">     </span><span class="n">o1</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o2</span><span class="p">.</span><span class="n">account_id</span>
-<span class="k">AND</span><span class="w">    </span><span class="n">o2</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">o1</span><span class="p">.</span><span class="n">occurred_at</span>
-<span class="k">AND</span><span class="w">    </span><span class="n">o2</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">o1</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="s1">&#39;28 days&#39;</span>
-<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">o1</span><span class="p">.</span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span><span class="n">o1</span><span class="p">.</span><span class="n">occurred_at</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">o1</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o1_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">o1</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o1_account_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">o1</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o1_occurred_at</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">o2</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o2_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">o2</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o2_account_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">o2</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">o2_occurred_at</span><span class="w"></span>
+<span class="k">FROM</span><span class="w">   </span><span class="n">orders</span><span class="w"> </span><span class="n">o1</span><span class="w"></span>
+<span class="k">LEFT</span><span class="w"> </span><span class="k">JOIN</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="n">o2</span><span class="w"></span>
+<span class="k">ON</span><span class="w">     </span><span class="n">o1</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">o2</span><span class="p">.</span><span class="n">account_id</span><span class="w"></span>
+<span class="k">AND</span><span class="w">    </span><span class="n">o2</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">o1</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"></span>
+<span class="k">AND</span><span class="w">    </span><span class="n">o2</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">o1</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nb">INTERVAL</span><span class="w"> </span><span class="s1">&#39;28 days&#39;</span><span class="w"></span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">o1</span><span class="p">.</span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span><span class="n">o1</span><span class="p">.</span><span class="n">occurred_at</span><span class="w"></span>
 </code></pre></div>
 <h3 id="union">UNION</h3>
 <ul>
@@ -603,18 +599,18 @@
 <p>___ProTip__</p>
 <ul>
 <li><code>UNION</code> remove duplicate rows
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">web_events</span>
-<span class="k">UNION</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">web_events_2</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">web_events</span><span class="w"></span>
+<span class="k">UNION</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">web_events_2</span><span class="w"></span>
 </code></pre></div></li>
 <li><code>UNION ALL</code> does not remove duplicate rows
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">web_events</span>
-<span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">web_events_2</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">web_events</span><span class="w"></span>
+<span class="k">UNION</span><span class="w"> </span><span class="k">ALL</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">web_events_2</span><span class="w"></span>
 </code></pre></div></li>
 </ul>
 <p><a href="https://www.techonthenet.com/sql/union.php">useful link on sql unions</a></p>
@@ -630,63 +626,63 @@
 <h3 id="limit-in-a-subquery-if-you-can">LIMIT in a subquery if you can</h3>
 <p>LIMIT happens afer the aggregations and group by so if you want to limit the table you should use a sub query</p>
 <p>This will not save time</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sum_poster_qty</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="s1">&#39;2016-01-01&#39;</span>
-<span class="k">AND</span><span class="w"> </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2016-07-01&#39;</span>
-<span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sum_poster_qty</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="s1">&#39;2016-01-01&#39;</span><span class="w"></span>
+<span class="k">AND</span><span class="w"> </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2016-07-01&#39;</span><span class="w"></span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="w"></span>
 </code></pre></div>
 <p>This will save time</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span>
-<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sum_poster_qty</span>
-<span class="k">FROM</span><span class="w">   </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="n">sub</span>
-<span class="k">WHERE</span><span class="w">  </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="s1">&#39;2016-01-01&#39;</span>
-<span class="k">AND</span><span class="w">    </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2016-07-01&#39;</span>
-<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sum_poster_qty</span><span class="w"></span>
+<span class="k">FROM</span><span class="w">   </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="n">sub</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w">  </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="s1">&#39;2016-01-01&#39;</span><span class="w"></span>
+<span class="k">AND</span><span class="w">    </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2016-07-01&#39;</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
 </code></pre></div>
 <h3 id="reduce-the-number-of-rows-to-join">Reduce the number of rows to join</h3>
 <p>The second thing you can do is to make joins less complicated, that is, reduce the number of rows that need to be evaluated. It is better to reduce table sizes before joining them.</p>
 <p>This can be done using a sub query</p>
 <p>non performant</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
-<span class="w">       </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">web_events</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span>
-<span class="k">JOIN</span><span class="w"> </span><span class="n">web_events</span><span class="w"> </span><span class="n">events</span>
-<span class="k">ON</span><span class="w"> </span><span class="n">events</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span>
-<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span>
-<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">DESC</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">web_events</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="w"></span>
+<span class="k">JOIN</span><span class="w"> </span><span class="n">web_events</span><span class="w"> </span><span class="n">events</span><span class="w"></span>
+<span class="k">ON</span><span class="w"> </span><span class="n">events</span><span class="p">.</span><span class="n">account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">DESC</span><span class="w"></span>
 </code></pre></div>
 <p>performant
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
-<span class="w">       </span><span class="n">sub</span><span class="p">.</span><span class="n">web_events</span>
-<span class="k">FROM</span><span class="w">   </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">account</span><span class="p">.</span><span class="n">id</span><span class="p">,</span>
-<span class="w">       </span><span class="k">COUNT</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">web_events</span>
-<span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="n">web_events</span>
-<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">sub</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">sub</span><span class="p">.</span><span class="n">web_events</span><span class="w"></span>
+<span class="k">FROM</span><span class="w">   </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">account</span><span class="p">.</span><span class="n">id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">COUNT</span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">web_events</span><span class="w"></span>
+<span class="w">       </span><span class="k">FROM</span><span class="w"> </span><span class="n">web_events</span><span class="w"></span>
+<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="n">sub</span><span class="w"></span>
 <span class="k">JOIN</span><span class="w">   </span><span class="n">accounts</span><span class="w"> </span><span class="n">a</span><span class="w"> </span>
-<span class="k">ON</span><span class="w">     </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sub</span><span class="p">.</span><span class="n">account_id</span>
-<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">DESC</span>
+<span class="k">ON</span><span class="w">     </span><span class="n">a</span><span class="p">.</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sub</span><span class="p">.</span><span class="n">account_id</span><span class="w"></span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">DESC</span><span class="w"></span>
 </code></pre></div></p>
 <h3 id="use-explain">Use EXPLAIN</h3>
 <p>Adding the command EXPLAIN at the beginning of any query allows you to get a sense of how long it will take your query to run. it will output a query plan.</p>
 <p>The query plan will attach a cost to the query and the higher the cost, the longer the runtime. EXPLAIN is most useful to identify and modify those steps that are expensive</p>
-<div class="highlight"><pre><span></span><code><span class="k">EXPLAIN</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
-<span class="k">FROM</span><span class="w">   </span><span class="n">web_events</span>
-<span class="k">WHERE</span><span class="w">  </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="s1">&#39;2016-01-01&#39;</span>
-<span class="k">AND</span><span class="w">    </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2016-02-01&#39;</span>
+<div class="highlight"><pre><span></span><code><span class="k">EXPLAIN</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="k">FROM</span><span class="w">   </span><span class="n">web_events</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w">  </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="s1">&#39;2016-01-01&#39;</span><span class="w"></span>
+<span class="k">AND</span><span class="w">    </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2016-02-01&#39;</span><span class="w"></span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code>-- output of query plan
 Limit (cost=0.00..69.68 rows=100 width=23)
 -&gt; Seq Scan on web_events (cost=0.00..195.09 rows=280 width=23)
 Filter: ((occurred_at &gt;= &#39;2016-01-01 00:00:00&#39;::timestamp without time zone) AND (occurred_at &lt; &#39;2016-02-01 00:00:00&#39;::timestamp without time zone))
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">EXPLAIN</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
-<span class="k">FROM</span><span class="w">   </span><span class="n">web_events</span>
-<span class="k">WHERE</span><span class="w">  </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="s1">&#39;2016-01-01&#39;</span>
-<span class="k">AND</span><span class="w">    </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2016-02-01&#39;</span>
-<span class="k">LIMIT</span><span class="w"> </span><span class="mi">100</span>
+<div class="highlight"><pre><span></span><code><span class="k">EXPLAIN</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="k">FROM</span><span class="w">   </span><span class="n">web_events</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w">  </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&gt;=</span><span class="s1">&#39;2016-01-01&#39;</span><span class="w"></span>
+<span class="k">AND</span><span class="w">    </span><span class="n">occurred_at</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2016-02-01&#39;</span><span class="w"></span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">100</span><span class="w"></span>
 </code></pre></div>
 
 
@@ -703,6 +699,27 @@ Filter: ((occurred_at &gt;= &#39;2016-01-01 00:00:00&#39;::timestamp without tim
       </main>
       
         <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../6_sql_windows_functions/" class="md-footer__link md-footer__link--prev" aria-label="Previous: SQL Window Functions" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              SQL Window Functions
+            </div>
+          </div>
+        </a>
+      
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -725,11 +742,12 @@ Filter: ((occurred_at &gt;= &#39;2016-01-01 00:00:00&#39;::timestamp without tim
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.4b2c34cd.min.js"></script>
+      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
       
+    
     
   </body>
 </html>

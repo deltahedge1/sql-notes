@@ -8,14 +8,8 @@
       
       
       
-      
-        <link rel="prev" href="../5_sql_data_cleaning/">
-      
-      
-        <link rel="next" href="../7_sql_advanced_joins_performance_tuning/">
-      
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.12">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
@@ -23,10 +17,11 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        
       
       
 
@@ -57,7 +52,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
   
     
     
@@ -151,7 +146,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
+          <ol class="md-search-result__list"></ol>
         </div>
       </div>
     </div>
@@ -295,7 +290,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
         
@@ -529,7 +524,6 @@
                   
 
 
-
 <h1 id="sql-window-functions">SQL Window Functions</h1>
 <h2 id="introdution">Introdution</h2>
 <p>In this lesson, we will cover window functions. Window functions are primarily used in two ways:</p>
@@ -572,9 +566,9 @@
 <li>Lag/Lead: Calculating differences between rows’ values.</li>
 </ul>
 <h2 id="syntax">Syntax</h2>
-<p><div class="highlight"><pre><span></span><code><span class="n">AGGREGATE_FUNCTION</span><span class="p">(</span><span class="n">column_1</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span>
-<span class="w">    </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">column_2</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">column_3</span><span class="p">)</span>
-<span class="w">    </span><span class="k">AS</span><span class="w"> </span><span class="n">new_column_name</span>
+<p><div class="highlight"><pre><span></span><code><span class="n">AGGREGATE_FUNCTION</span><span class="p">(</span><span class="n">column_1</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">column_2</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">column_3</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="k">AS</span><span class="w"> </span><span class="n">new_column_name</span><span class="w"></span>
 </code></pre></div>
 1. An aggregation function (e.g., sum, count, or average) + the column you’d like to track
 2. OVER
@@ -602,17 +596,17 @@
 </tbody>
 </table>
 <p><strong><em>Note</em></strong>: You can't use a window function and standard aggregations in the same query. you can’t include window functions in a GROUP BY clause.</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">order_id</span><span class="p">,</span>
-<span class="w">       </span><span class="n">order_total</span><span class="p">,</span>
-<span class="w">       </span><span class="n">order_price</span><span class="p">,</span>
-<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span>
-<span class="w">           </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly_sales</span><span class="p">,</span>
-<span class="w">       </span><span class="k">COUNT</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span>
-<span class="w">           </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly</span><span class="w"> </span><span class="n">orders</span><span class="p">,</span>
-<span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">order_price</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span>
-<span class="w">           </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">average_monthly_price</span>
-<span class="k">FROM</span><span class="w">  </span><span class="n">amazon_sales_db</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">order_date</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2017-01-01&#39;</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">order_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">order_total</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">order_price</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"></span>
+<span class="w">           </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly_sales</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">COUNT</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"></span>
+<span class="w">           </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly</span><span class="w"> </span><span class="n">orders</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">order_price</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"></span>
+<span class="w">           </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">average_monthly_price</span><span class="w"></span>
+<span class="k">FROM</span><span class="w">  </span><span class="n">amazon_sales_db</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">order_date</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2017-01-01&#39;</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <h2 id="ranking-window-functions">Ranking Window Functions</h2>
 <ul>
@@ -675,10 +669,10 @@
 </tr>
 </tbody>
 </table>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">score</span><span class="p">,</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span>
-<span class="w">       </span><span class="n">RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">rank</span><span class="p">,</span>
-<span class="w">       </span><span class="n">DENSE_RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dense_rank</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">score</span><span class="p">,</span><span class="w"> </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">rank</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">DENSE_RANK</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">score</span><span class="w"> </span><span class="k">DESC</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">dense_rank</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <h2 id="alias-for-window-functions">Alias for window functions</h2>
 <ul>
@@ -686,73 +680,73 @@
 <li>It is then called on each time an aggregate function is used within the SELECT clause.</li>
 </ul>
 <p>syntax</p>
-<div class="highlight"><pre><span></span><code><span class="cm">/* previous sql code */</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">AGGREGATE_FUNCTION</span><span class="p">(</span><span class="k">column</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_windows</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">column_name</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="p">...</span>
-<span class="n">WINDOW</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span>
-<span class="w">       </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="cm">/* previous sql code */</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">AGGREGATE_FUNCTION</span><span class="p">(</span><span class="k">column</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_windows</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="k">column_name</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="p">...</span><span class="w"></span>
+<span class="n">WINDOW</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span><span class="w"></span>
+<span class="w">       </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">order_id</span><span class="p">,</span>
-<span class="w">       </span><span class="n">order_total</span><span class="p">,</span>
-<span class="w">       </span><span class="n">order_price</span><span class="p">,</span>
-<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly_sales</span><span class="p">,</span>
-<span class="w">       </span><span class="k">COUNT</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly</span><span class="w"> </span><span class="n">orders</span><span class="p">,</span>
-<span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">order_price</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">average_monthly_price</span>
-<span class="k">FROM</span><span class="w">   </span><span class="n">amazon_sales_db</span>
-<span class="k">WHERE</span><span class="w">  </span><span class="n">order_date</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2017-01-01&#39;</span>
-<span class="n">WINDOW</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span>
-<span class="w">       </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">order_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">order_total</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">order_price</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly_sales</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">COUNT</span><span class="p">(</span><span class="n">order_id</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">running_monthly</span><span class="w"> </span><span class="n">orders</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">order_price</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">average_monthly_price</span><span class="w"></span>
+<span class="k">FROM</span><span class="w">   </span><span class="n">amazon_sales_db</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w">  </span><span class="n">order_date</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="s1">&#39;2017-01-01&#39;</span><span class="w"></span>
+<span class="n">WINDOW</span><span class="w"> </span><span class="n">monthly_window</span><span class="w"> </span><span class="k">AS</span><span class="w"></span>
+<span class="w">       </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">month</span><span class="p">(</span><span class="n">order_date</span><span class="p">)</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">order_date</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <h2 id="lag">LAG</h2>
 <p>syntax</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">LAG</span><span class="p">(</span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lag</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">LAG</span><span class="p">(</span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lag</span><span class="w"></span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span>
-<span class="w">       </span><span class="n">standard_sum</span><span class="p">,</span>
-<span class="w">       </span><span class="n">LAG</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lag</span>
-<span class="w">       </span><span class="n">standard_sum</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">LAG</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lag_difference</span>
-<span class="k">FROM</span><span class="w">   </span><span class="p">(</span>
-<span class="w">        </span><span class="k">SELECT</span><span class="w">   </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_sum</span>
-<span class="w">        </span><span class="k">FROM</span><span class="w">     </span><span class="n">orders</span>
-<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="n">sub</span>
+<span class="w">       </span><span class="n">standard_sum</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">LAG</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lag</span><span class="w"></span>
+<span class="w">       </span><span class="n">standard_sum</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">LAG</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lag_difference</span><span class="w"></span>
+<span class="k">FROM</span><span class="w">   </span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w">   </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_sum</span><span class="w"></span>
+<span class="w">        </span><span class="k">FROM</span><span class="w">     </span><span class="n">orders</span><span class="w"></span>
+<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="n">sub</span><span class="w"></span>
 </code></pre></div>
 <h2 id="lead">LEAD</h2>
 <p>syntax</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">LEAD</span><span class="p">(</span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lead</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">LEAD</span><span class="p">(</span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lead</span><span class="w"></span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span>
-<span class="w">       </span><span class="n">standard_sum</span><span class="p">,</span>
-<span class="w">       </span><span class="n">LEAD</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lead</span>
-<span class="w">       </span><span class="n">standard_sum</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">LEAD</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lead_difference</span>
-<span class="k">FROM</span><span class="w">   </span><span class="p">(</span>
-<span class="w">        </span><span class="k">SELECT</span><span class="w">   </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_sum</span>
-<span class="w">        </span><span class="k">FROM</span><span class="w">     </span><span class="n">orders</span>
-<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="n">sub</span>
+<span class="w">       </span><span class="n">standard_sum</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">LEAD</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lead</span><span class="w"></span>
+<span class="w">       </span><span class="n">standard_sum</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">LEAD</span><span class="p">(</span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_sum</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">lead_difference</span><span class="w"></span>
+<span class="k">FROM</span><span class="w">   </span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="k">SELECT</span><span class="w">   </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_sum</span><span class="w"></span>
+<span class="w">        </span><span class="k">FROM</span><span class="w">     </span><span class="n">orders</span><span class="w"></span>
+<span class="w">        </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">       </span><span class="p">)</span><span class="w"> </span><span class="n">sub</span><span class="w"></span>
 </code></pre></div>
 <h2 id="percentiles-ntile">Percentiles NTILE</h2>
 <p><img alt="NTILE syntax" src="../images/percentiles.png" /></p>
 <p><img alt="NTILE example" src="../images/percentiles_example.png" /></p>
 <p>Syntax</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NTILE</span><span class="p">(</span><span class="o">#</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">buckets</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">ranking_columns</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">new_column_name</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">NTILE</span><span class="p">(</span><span class="o">#</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">buckets</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">ranking_columns</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">new_column_name</span><span class="w"></span>
 </code></pre></div>
 <p>Example</p>
 <div class="highlight"><pre><span></span><code><span class="c1">-- NTILE(# of buckets) OVER (ORDER BY ranking_column) AS new_column_name</span>
 
-<span class="k">SELECT</span><span class="w">  </span><span class="n">customer_id</span><span class="p">,</span>
-<span class="w">        </span><span class="n">composite_score</span><span class="p">,</span>
-<span class="w">        </span><span class="n">NTILE</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">composite_score</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">percentile</span>
-<span class="k">FROM</span><span class="w">    </span><span class="n">customer_lead_score</span><span class="p">;</span>
+<span class="k">SELECT</span><span class="w">  </span><span class="n">customer_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">composite_score</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">NTILE</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">composite_score</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">percentile</span><span class="w"></span>
+<span class="k">FROM</span><span class="w">    </span><span class="n">customer_lead_score</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <p>Example - get each quartile for each account_id</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span>
-<span class="w">       </span><span class="n">account_id</span><span class="p">,</span>
-<span class="w">       </span><span class="n">occurred_at</span><span class="p">,</span>
-<span class="w">       </span><span class="n">standard_qty</span><span class="p">,</span>
-<span class="w">       </span><span class="n">NTILE</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_quartile</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"></span>
+<span class="w">       </span><span class="n">account_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">occurred_at</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">standard_qty</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">NTILE</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="n">PARTITION</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_quartile</span><span class="w"></span>
 <span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span>
-<span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">DESC</span>
+<span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">account_id</span><span class="w"> </span><span class="k">DESC</span><span class="w"></span>
 </code></pre></div>
 
 
@@ -769,6 +763,42 @@
       </main>
       
         <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../5_sql_data_cleaning/" class="md-footer__link md-footer__link--prev" aria-label="Previous: SQL Data Cleaning" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              SQL Data Cleaning
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../7_sql_advanced_joins_performance_tuning/" class="md-footer__link md-footer__link--next" aria-label="Next: SQL Advanced JOINS &amp; Performance Tuning" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              SQL Advanced JOINS & Performance Tuning
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -791,11 +821,12 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.4b2c34cd.min.js"></script>
+      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
       
+    
     
   </body>
 </html>

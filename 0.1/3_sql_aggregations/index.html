@@ -8,14 +8,8 @@
       
       
       
-      
-        <link rel="prev" href="../2_sql_joins/">
-      
-      
-        <link rel="next" href="../4_sql_sub_queries_temp_tables/">
-      
       <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.12">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-8.5.10">
     
     
       
@@ -23,10 +17,11 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.975780f9.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+        
       
       
 
@@ -57,7 +52,7 @@
     
     
     
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="None" data-md-color-accent="None">
   
     
     
@@ -151,7 +146,7 @@
           <div class="md-search-result__meta">
             Initializing search
           </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
+          <ol class="md-search-result__list"></ol>
         </div>
       </div>
     </div>
@@ -250,7 +245,7 @@
   
     <li class="md-nav__item md-nav__item--active">
       
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
         
@@ -637,7 +632,6 @@
                   
 
 
-
 <h1 id="sql-aggregations">SQL Aggregations</h1>
 <h2 id="introduction">Introduction</h2>
 <p>In this lesson, we will cover and you will be able to:</p>
@@ -701,60 +695,60 @@
 <p>Datatype that specifiies that there is no data exists i.e. it does not necessarily mean 0 it is the absence of data.</p>
 <p><strong>Protip</strong> We don't use =, because NULL isn't considered a value in SQL. Rather, it is a property of the data.</p>
 <p>Filtering for <code>NULL</code></p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
-<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">col_1</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">col_1</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"></span>
 </code></pre></div>
 <p>Filtering for <code>NOT NULL</code>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span>
-<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">col_1</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">col_1</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="w"></span>
 </code></pre></div></p>
 <h2 id="aggregations">Aggregations</h2>
 <h3 id="count">COUNT</h3>
 <p><code>COUNT</code> over all rows in a table</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <p><code>COUNT</code> over speciic column (this will count only non <code>NULL</code> values)</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span><span class="p">)</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="n">accounts</span><span class="p">.</span><span class="n">id</span><span class="p">)</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">accounts</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <h3 id="sum">SUM</h3>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard</span><span class="p">,</span>
-<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">gloss_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gloss</span><span class="p">,</span>
-<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">poster</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">gloss_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gloss</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">poster</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"></span>
 </code></pre></div>
 <h3 id="min-and-max">MIN and MAX</h3>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_min</span><span class="p">,</span>
-<span class="w">       </span><span class="k">MIN</span><span class="p">(</span><span class="n">gloss_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gloss_min</span><span class="p">,</span>
-<span class="w">       </span><span class="k">MIN</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">poster_min</span><span class="p">,</span>
-<span class="w">       </span><span class="k">MAX</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_max</span><span class="p">,</span>
-<span class="w">       </span><span class="k">MAX</span><span class="p">(</span><span class="n">gloss_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gloss_max</span><span class="p">,</span>
-<span class="w">       </span><span class="k">MAX</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">poster_max</span>
-<span class="k">FROM</span><span class="w">   </span><span class="n">orders</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">MIN</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_min</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">MIN</span><span class="p">(</span><span class="n">gloss_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gloss_min</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">MIN</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">poster_min</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">MAX</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_max</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">MAX</span><span class="p">(</span><span class="n">gloss_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gloss_max</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">MAX</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">poster_max</span><span class="w"></span>
+<span class="k">FROM</span><span class="w">   </span><span class="n">orders</span><span class="w"></span>
 </code></pre></div>
 <h3 id="avg">AVG</h3>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_avg</span><span class="p">,</span>
-<span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">gloss_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gloss_avg</span><span class="p">,</span>
-<span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">poster_avg</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="n">standard_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">standard_avg</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">gloss_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">gloss_avg</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">AVG</span><span class="p">(</span><span class="n">poster_qty</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">poster_avg</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"></span>
 </code></pre></div>
 <p><strong><code>AVG</code> when you want to include NULLs as 0</strong></p>
 <ul>
 <li>Use the <code>COALESCE</code> function</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="k">COALESCE</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">average_amount</span>
-<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">AVG</span><span class="p">(</span><span class="k">COALESCE</span><span class="p">(</span><span class="n">amount</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">average_amount</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
 </code></pre></div>
 <p>The innermost subquery retrieves the column_name values, assigns a unique row_num to each row using the ROW_NUMBER() function, and calculates the total number of rows in the table using the COUNT(*) OVER() function.</p>
-<div class="highlight"><pre><span></span><code><span class="cm">/* output of subquery */</span>
+<div class="highlight"><pre><span></span><code><span class="cm">/* output of subquery */</span><span class="w"></span>
 <span class="o">+</span><span class="c1">-----------+--------+------------+</span>
-<span class="o">|</span><span class="w"> </span><span class="k">column_name</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">total_rows</span><span class="w"> </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="k">column_name</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">total_rows</span><span class="w"> </span><span class="o">|</span><span class="w"></span>
 <span class="o">+</span><span class="c1">-----------+--------+------------+</span>
-<span class="o">|</span><span class="w"> </span><span class="mi">50</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="o">|</span><span class="w">      </span><span class="mi">5</span><span class="w"> </span><span class="o">|</span><span class="w">         </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span>
-<span class="o">|</span><span class="w"> </span><span class="mi">60</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="o">|</span><span class="w">      </span><span class="mi">6</span><span class="w"> </span><span class="o">|</span><span class="w">         </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span>
+<span class="o">|</span><span class="w"> </span><span class="mi">50</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="o">|</span><span class="w">      </span><span class="mi">5</span><span class="w"> </span><span class="o">|</span><span class="w">         </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"></span>
+<span class="o">|</span><span class="w"> </span><span class="mi">60</span><span class="p">.</span><span class="mi">00</span><span class="w"> </span><span class="o">|</span><span class="w">      </span><span class="mi">6</span><span class="w"> </span><span class="o">|</span><span class="w">         </span><span class="mi">10</span><span class="w"> </span><span class="o">|</span><span class="w"></span>
 <span class="o">+</span><span class="c1">-----------+--------+------------+</span>
 </code></pre></div>
 <p>The middle subquery filters the rows that have a row_num equal to either FLOOR((total_rows + 1) / 2.0) or CEILING((total_rows + 1) / 2.0).</p>
@@ -764,34 +758,34 @@
 <p>In this case, since the sales table has an even number of rows, the middle subquery selects rows 5 and 6 with sales amounts of 50.00 and 60.00.</p>
 <h3 id="median-no-function-out-the-box">Median (no function out the box)</h3>
 <p><code>MEDIAN</code> is more advanced to calculate</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">,</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span><span class="w"> </span><span class="n">total_rows</span>
-<span class="k">FROM</span><span class="w"> </span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">,</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span><span class="w"> </span><span class="n">total_rows</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 <span class="w">  </span><span class="k">SELECT</span><span class="w"> </span><span class="k">column_name</span><span class="p">,</span><span class="w"> </span>
 <span class="w">  </span><span class="n">ROW_NUMBER</span><span class="p">()</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">row_num</span><span class="p">,</span><span class="w"> </span>
-<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_rows</span>
-<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">sales</span>
-<span class="p">)</span><span class="w"> </span><span class="n">subquery</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLOOR</span><span class="p">((</span><span class="n">total_rows</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CEILING</span><span class="p">((</span><span class="n">total_rows</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_rows</span><span class="w"></span>
+<span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">sales</span><span class="w"></span>
+<span class="p">)</span><span class="w"> </span><span class="n">subquery</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FLOOR</span><span class="p">((</span><span class="n">total_rows</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">row_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CEILING</span><span class="p">((</span><span class="n">total_rows</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span><span class="w"></span>
 </code></pre></div>
 <h3 id="group-by">GROUP BY</h3>
 <ul>
 <li>Used to aggregate subsets of data e.g. by region, age, gender</li>
 <li>Any column not in the <code>SELECT</code> statement that is not within an aggregator must be in the <code>GROUP BY</code> clause</li>
 <li>Goes between <code>WHERE</code> and <code>ORDER BY</code>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">col1</span><span class="p">,</span><span class="w"> </span><span class="n">col2</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">col2</span><span class="p">)</span><span class="w"> </span><span class="n">total</span>
-<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">col2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;M&#39;</span>
-<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">col1</span>
-<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">total</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">col1</span><span class="p">,</span><span class="w"> </span><span class="n">col2</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">col2</span><span class="p">)</span><span class="w"> </span><span class="n">total</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">col2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;M&#39;</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">col1</span><span class="w"></span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">total</span><span class="w"></span>
 </code></pre></div></li>
 <li><code>ORDER BY</code> is temporary and will not change the table</li>
 <li>Evaluated before the <code>LIMIT</code> so all aggregations will be performed so there are no errors, but that means that if you are using <code>LIMIT</code> for performance reasons you won't get any benefit
-<div class="highlight"><pre><span></span><code><span class="cm">/* if you want a performance benefit use a subquery */</span>
-<span class="k">SELECT</span><span class="w"> </span><span class="n">col1</span><span class="p">,</span><span class="w"> </span><span class="n">col2</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">col2</span><span class="p">)</span><span class="w"> </span><span class="n">total</span>
-<span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">t1</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">col2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;M&#39;</span>
-<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">col1</span>
-<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">total</span>
+<div class="highlight"><pre><span></span><code><span class="cm">/* if you want a performance benefit use a subquery */</span><span class="w"></span>
+<span class="k">SELECT</span><span class="w"> </span><span class="n">col1</span><span class="p">,</span><span class="w"> </span><span class="n">col2</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">col2</span><span class="p">)</span><span class="w"> </span><span class="n">total</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">t1</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">col2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;M&#39;</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">col1</span><span class="w"></span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">total</span><span class="w"></span>
 </code></pre></div></li>
 <li>You can <code>GROUP BY</code> multiple columns at once<ul>
 <li>order of the columns in the <code>ORDER BY</code> does not matter</li>
@@ -805,12 +799,12 @@
 <li><code>DISTINCT</code> is always used in <code>SELECT</code> statements</li>
 <li>Only use <code>DISTINCT</code> once<ul>
 <li>Correct
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">column1</span><span class="p">,</span><span class="w"> </span><span class="n">column2</span>
-<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">column1</span><span class="p">,</span><span class="w"> </span><span class="n">column2</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
 </code></pre></div></li>
 <li>Wrong!
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">column1</span><span class="p">,</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">column2</span><span class="w"> </span><span class="cm">/* do not do this */</span>
-<span class="k">FROM</span><span class="w"> </span><span class="k">table</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">column1</span><span class="p">,</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">column2</span><span class="w"> </span><span class="cm">/* do not do this */</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="k">table</span><span class="w"></span>
 </code></pre></div></li>
 </ul>
 </li>
@@ -878,8 +872,8 @@
 </tbody>
 </table>
 <p>Distinct on one column</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">customer_name</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">sales</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">customer_name</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sales</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <p>Output</p>
 <table>
@@ -901,8 +895,8 @@
 </tbody>
 </table>
 <p>Distinct on two columns</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">customer_name</span><span class="p">,</span><span class="w"> </span><span class="n">product_name</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">sales</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">customer_name</span><span class="p">,</span><span class="w"> </span><span class="n">product_name</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">sales</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
 <table>
 <thead>
@@ -939,7 +933,7 @@
 </tbody>
 </table>
 <p>Using Distinct with aggregations</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">customer_name</span><span class="p">),</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">product_name</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">customer_name</span><span class="p">),</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">product_name</span><span class="p">)</span><span class="w"></span>
 <span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"> </span>
 </code></pre></div>
 <p>output</p>
@@ -981,19 +975,19 @@
 </tbody>
 </table>
 <p>simple example</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span>
-<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">total_amt_usd</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sum_total_amt_usd</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
-<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span>
-<span class="k">HAVING</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">total_amt_usd</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">250000</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">SUM</span><span class="p">(</span><span class="n">total_amt_usd</span><span class="p">)</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">sum_total_amt_usd</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">total_amt_usd</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">250000</span><span class="w"></span>
 </code></pre></div>
 <p>example of <code>WHERE</code> and <code>HAVING</code></p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">customer_id</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num_orders</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_sales</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">customer_id</span><span class="p">,</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">num_orders</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">total_sales</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"></span>
 <span class="k">WHERE</span><span class="w"> </span><span class="n">order_date</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="s1">&#39;2022-01-01&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="s1">&#39;2022-12-31&#39;</span><span class="w"> </span><span class="c1">-- Only orders in 2022</span>
-<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">customer_id</span>
-<span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1000</span>
-<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">total_sales</span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">customer_id</span><span class="w"></span>
+<span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">order_total</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1000</span><span class="w"></span>
+<span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">total_sales</span><span class="w"></span>
 </code></pre></div>
 <h3 id="date-functions">DATE FUNCTIONS</h3>
 <p>Database format <code>YYYY MM DD</code>
@@ -1002,7 +996,7 @@
 <ul>
 <li>truncates the date to the required position</li>
 <li>syntax
-    <div class="highlight"><pre><span></span><code><span class="n">DATE_TRUNC</span><span class="p">(</span><span class="s1">&#39;&lt;date option e.g. day&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="n">DATE_TRUNC</span><span class="p">(</span><span class="s1">&#39;&lt;date option e.g. day&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"></span>
 </code></pre></div></li>
 <li>options<ul>
 <li><code>day</code></li>
@@ -1013,16 +1007,16 @@
 </ul>
 <p><img alt="Date Trunc" src="../images/date_trunc.png" /></p>
 <p>example to groupby the year
-<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">DATE_FUNC</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">occurred_at</span><span class="p">)</span><span class="w"> </span><span class="n">ord_year</span><span class="p">,</span><span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="n">total_amt_usd</span><span class="p">)</span><span class="w"> </span><span class="n">total_spent</span>
-<span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
-<span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span>
-<span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">DATE_FUNC</span><span class="p">(</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">occurred_at</span><span class="p">)</span><span class="w"> </span><span class="n">ord_year</span><span class="p">,</span><span class="w">  </span><span class="k">SUM</span><span class="p">(</span><span class="n">total_amt_usd</span><span class="p">)</span><span class="w"> </span><span class="n">total_spent</span><span class="w"></span>
+<span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"></span>
+<span class="w"> </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></p>
 <h4 id="date_part">DATE_PART</h4>
 <ul>
 <li>extracts only that part of the <code>DATE</code> e.g. the month</li>
 <li>syntax
-    <div class="highlight"><pre><span></span><code><span class="n">DATE_PART</span><span class="p">(</span><span class="s1">&#39;&lt;date option e.g. day&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span>
+    <div class="highlight"><pre><span></span><code><span class="n">DATE_PART</span><span class="p">(</span><span class="s1">&#39;&lt;date option e.g. day&gt;&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">column_name</span><span class="p">)</span><span class="w"></span>
 </code></pre></div></li>
 <li>options<ul>
 <li><code>dow</code> i.e. day of week</li>
@@ -1034,10 +1028,10 @@
 </ul>
 <p><img alt="Date Part" src="../images/date_part.png" /></p>
 <p>Example for month from any year</p>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DATE_PART</span><span class="p">(</span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">occurred_at</span><span class="p">)</span><span class="w"> </span><span class="n">ord_month</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">total_amt_usd</span><span class="p">)</span><span class="w"> </span><span class="n">total_spent</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">occurred_at</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="s1">&#39;2014-01-01&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="s1">&#39;2017-01-01&#39;</span>
-<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">DATE_PART</span><span class="p">(</span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">occurred_at</span><span class="p">)</span><span class="w"> </span><span class="n">ord_month</span><span class="p">,</span><span class="w"> </span><span class="k">SUM</span><span class="p">(</span><span class="n">total_amt_usd</span><span class="p">)</span><span class="w"> </span><span class="n">total_spent</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">occurred_at</span><span class="w"> </span><span class="k">BETWEEN</span><span class="w"> </span><span class="s1">&#39;2014-01-01&#39;</span><span class="w"> </span><span class="k">AND</span><span class="w"> </span><span class="s1">&#39;2017-01-01&#39;</span><span class="w"></span>
+<span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
 <span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span><span class="w"> </span>
 </code></pre></div>
 <h3 id="case">CASE</h3>
@@ -1047,19 +1041,19 @@
 <li>You can make any conditional statement using any conditional operator (like WHERE) between WHEN and THEN. This includes stringing together multiple conditional statements using AND and OR.</li>
 <li>You can include multiple WHEN statements, as well as an ELSE statement again, to deal with any unaddressed conditions.</li>
 </ul>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">standard_qty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">standard_qty</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">                        </span><span class="k">ELSE</span><span class="w"> </span><span class="n">standard_amt_usd</span><span class="o">/</span><span class="n">standard_qty</span><span class="w"> </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">unit_price</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
-<span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span><span class="w"> </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">standard_qty</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">OR</span><span class="w"> </span><span class="n">standard_qty</span><span class="w"> </span><span class="k">IS</span><span class="w"> </span><span class="k">NULL</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
+<span class="w">                        </span><span class="k">ELSE</span><span class="w"> </span><span class="n">standard_amt_usd</span><span class="o">/</span><span class="n">standard_qty</span><span class="w"> </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">unit_price</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"></span>
+<span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="p">;</span><span class="w"></span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span>
-<span class="w">       </span><span class="n">occurred_at</span><span class="p">,</span>
-<span class="w">       </span><span class="n">total</span><span class="p">,</span>
-<span class="w">       </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">500</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;Over 500&#39;</span>
-<span class="w">            </span><span class="k">WHEN</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">300</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;301 - 500&#39;</span>
-<span class="w">            </span><span class="k">WHEN</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;101 - 300&#39;</span>
-<span class="w">            </span><span class="k">ELSE</span><span class="w"> </span><span class="s1">&#39;100 or under&#39;</span><span class="w"> </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_group</span>
-<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span>
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">account_id</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">occurred_at</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="n">total</span><span class="p">,</span><span class="w"></span>
+<span class="w">       </span><span class="k">CASE</span><span class="w"> </span><span class="k">WHEN</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">500</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;Over 500&#39;</span><span class="w"></span>
+<span class="w">            </span><span class="k">WHEN</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">300</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;301 - 500&#39;</span><span class="w"></span>
+<span class="w">            </span><span class="k">WHEN</span><span class="w"> </span><span class="n">total</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="k">THEN</span><span class="w"> </span><span class="s1">&#39;101 - 300&#39;</span><span class="w"></span>
+<span class="w">            </span><span class="k">ELSE</span><span class="w"> </span><span class="s1">&#39;100 or under&#39;</span><span class="w"> </span><span class="k">END</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="n">total_group</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"> </span><span class="n">orders</span><span class="w"></span>
 </code></pre></div>
 
 
@@ -1076,6 +1070,42 @@
       </main>
       
         <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../2_sql_joins/" class="md-footer__link md-footer__link--prev" aria-label="Previous: SQL JOINs" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              SQL JOINs
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../4_sql_sub_queries_temp_tables/" class="md-footer__link md-footer__link--next" aria-label="Next: SQL Sub Queries &amp; Temp Tables" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              SQL Sub Queries & Temp Tables
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1098,11 +1128,12 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.16e2a7d4.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.4b2c34cd.min.js"></script>
+      <script src="../assets/javascripts/bundle.5a2dcb6a.min.js"></script>
       
+    
     
   </body>
 </html>
