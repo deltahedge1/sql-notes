@@ -560,6 +560,18 @@
 </code></pre></div></li>
 </ul>
 </li>
+<li>Inline<ul>
+<li><strong>like a with but not ontop</strong></li>
+<li>This subquery is used in the same fashion as the WITH use case above. However, instead of the temporary table sitting on top of the larger query, it’s embedded within the from clause.
+<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">student_name</span><span class="w"></span>
+<span class="k">FROM</span><span class="w"></span>
+<span class="w">    </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">student_id</span><span class="p">,</span><span class="w"> </span><span class="n">student_name</span><span class="p">,</span><span class="w"> </span><span class="n">grade</span><span class="w"></span>
+<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"></span>
+<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">teacher</span><span class="w"> </span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="w"></span>
+<span class="k">WHERE</span><span class="w"> </span><span class="n">grade</span><span class="w"> </span><span class="o">&gt;</span><span class="mi">80</span><span class="p">;</span><span class="w"></span>
+</code></pre></div></li>
+</ul>
+</li>
 <li>Nested<ul>
 <li>A nested subquery is a subquery that is embedded within another subquery or the main query
 <div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">department_name</span><span class="w"></span>
@@ -570,17 +582,6 @@
 <span class="w">    </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">department_id</span><span class="w"></span>
 <span class="w">    </span><span class="k">HAVING</span><span class="w"> </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">5</span><span class="w"></span>
 <span class="p">);</span><span class="w"></span>
-</code></pre></div></li>
-</ul>
-</li>
-<li>Inline<ul>
-<li>This subquery is used in the same fashion as the WITH use case above. However, instead of the temporary table sitting on top of the larger query, it’s embedded within the from clause.
-<div class="highlight"><pre><span></span><code><span class="k">SELECT</span><span class="w"> </span><span class="n">student_name</span><span class="w"></span>
-<span class="k">FROM</span><span class="w"></span>
-<span class="w">    </span><span class="p">(</span><span class="k">SELECT</span><span class="w"> </span><span class="n">student_id</span><span class="p">,</span><span class="w"> </span><span class="n">student_name</span><span class="p">,</span><span class="w"> </span><span class="n">grade</span><span class="w"></span>
-<span class="w">    </span><span class="k">FROM</span><span class="w"> </span><span class="n">student</span><span class="w"></span>
-<span class="w">    </span><span class="k">WHERE</span><span class="w"> </span><span class="n">teacher</span><span class="w"> </span><span class="o">=</span><span class="mi">10</span><span class="p">)</span><span class="w"></span>
-<span class="k">WHERE</span><span class="w"> </span><span class="n">grade</span><span class="w"> </span><span class="o">&gt;</span><span class="mi">80</span><span class="p">;</span><span class="w"></span>
 </code></pre></div></li>
 </ul>
 </li>
